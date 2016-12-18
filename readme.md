@@ -129,3 +129,7 @@ const selectionShare = shareThis({
 ```
 
 Note: the `sharers` array should *not* be empty, or nothing will ever happen.
+
+## License
+
+MIT @ Massimo Artizzu 2016. See [LICENSE](LICENSE).
