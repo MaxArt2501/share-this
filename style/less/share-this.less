@@ -1,0 +1,45 @@
+@import "vars.less";
+@import "mixins.less";
+
+.share-this-popup {
+    .share-this-transform(translate(-50%, -100%));
+    margin-top: @share-this-vertical-offset;
+    background: @share-this-background;
+    color: @share-this-foreground;
+    border-radius: @share-this-border-radius;
+    -webkit-filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .35));
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        margin-left: -@share-this-arrow-size;
+        border-width: @share-this-arrow-size @share-this-arrow-size 0;
+        border-style: solid;
+        border-color: @share-this-background transparent;
+    }
+
+    > ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        > li {
+            float: left;
+            width: @share-this-sharer-width;
+            height: @share-this-sharer-height;
+            line-height: @share-this-sharer-height;
+            text-align: center;
+
+            > a {
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                color: inherit;
+            }
+        }
+    }
+}
