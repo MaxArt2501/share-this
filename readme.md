@@ -130,6 +130,16 @@ const selectionShare = shareThis({
 
 Note: the `sharers` array should *not* be empty, or nothing will ever happen.
 
+The following are the default basic sharers provided by the package:
+
+Site     | File location               | Name        | Global variable
+---------|-----------------------------|-------------|-----------------------
+Twitter  | `dist/sharers/twitter.js`   | `twitter`   | `ShareThisViaTwitter`
+Facebook | `dist/sharers/facebook.js`  | `facebook`  | `ShareThisViaFacebook`
+LinkedIn | `dist/sharers/linked-in.js` | `linked-in` | `ShareThisViaLinkedIn`
+Reddit   | `dist/sharers/reddit.js`    | `reddit`    | `ShareThisViaReddit`
+Email    | `dist/sharers/email.js`     | `email`     | `ShareThisViaEmail`
+
 ## License
 
 MIT @ Massimo Artizzu 2016. See [LICENSE](LICENSE).

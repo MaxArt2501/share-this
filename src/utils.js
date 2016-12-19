@@ -34,6 +34,10 @@ export function closest(element, selector) {
     return target;
 };
 
+export function camelize(string) {
+    return string.replace(/(?:^|-)([a-z])/g, (_, char) => char.toUpperCase());
+};
+
 function getMatchFunctionName(element) {
     for (const name of [ "matches", "matchesSelector", "webkitMatchesSelector", "mozMatchesSelector", "msMatchesSelector", "oMatchesSelector" ])
         if (typeof element[name] === "function") return name;

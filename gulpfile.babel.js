@@ -13,6 +13,8 @@ import buffer from "vinyl-buffer";
 import less from "gulp-less";
 import cssnano from "gulp-cssnano";
 
+import { camelize } from "./src/utils";
+
 gulp.task("js", _ => {
     buildJsEntry("./src/core.js", "share-this", "ShareThis", "dist/");
 });
@@ -21,7 +23,7 @@ gulp.task("sharers", _ => {
     readdirSync("./src/sharers").forEach(file => {
         const name = file.replace(/\.js$/i, "");
         if (name === file) return;
-        buildJsEntry(`./src/sharers/${file}`, name, "ShareThisVia" + name[0].toUpperCase() + name.slice(1), "dist/sharers/");
+        buildJsEntry(`./src/sharers/${file}`, name, `ShareThisVia${camelize(name)}`, "dist/sharers/");
     });
 });
 
@@ -30,6 +32,7 @@ gulp.task("less", _ => {
         .pipe(less())
         .pipe(cssnano())
         .pipe(gulp.dest("dist/"))
+    ;
 });
 
 gulp.task("default", _ => {
