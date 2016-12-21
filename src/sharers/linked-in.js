@@ -12,10 +12,11 @@ exports.render = function render(text, rawText, refUrl) {
         </svg></a>`;
 };
 
+const CHAR_LIMIT = 250;
 exports.getText = function getText(text) {
     let chunk = text.trim();
-    if (chunk.length > 250)
-        chunk = chunk.slice(0, 250).trim() + "\u2026";
+    if (chunk.length > CHAR_LIMIT - 2)
+        chunk = chunk.slice(0, CHAR_LIMIT - 3).trim() + "\u2026";
 
     return `\u201c${chunk}\u201d`;
 };
