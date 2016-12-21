@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>share-this test</title>
+        <link rel="stylesheet" href="../dist/share-this.css">
+    </head>
+    <body>
+        <p>
+            What we like more from the previous snippet is that we start always
+            with a lot of enthusiasm, our initial code state is in a
+            <strong>clean and beautiful state</strong>, all seem to be perfect
+            like in a <strong>piece of art</strong>
+        </p>
+        <p id="shareable">
+            <em>Disclaimer: this article is written by a PHP software engineer’s
+            prospective, even that, principles and concepts illustrated below
+            can be easily applied to other popular Object Oriented programming
+            languages such as Java, Python, Ruby [..]</em>
+        </p>
+        <p>But later, you all know, new features are coming, the <strong>project
+            gets bigger and complex</strong> and the code starts becoming a pure
+            mess. Is that what we start calling it <strong>code that
+            sucks!</strong> Nobody wants to work on that crappy and messy code
+            and moreover everyone want to start over all from scratch.
+        </p>
+        <script src="../dist/share-this.js"></script>
+        <script src="../dist/sharers/twitter.js"></script>
+        <script src="../dist/sharers/facebook.js"></script>
+        <script src="../dist/sharers/linked-in.js"></script>
+        <script src="../dist/sharers/reddit.js"></script>
+        <script src="../dist/sharers/email.js"></script>
+        <script>
+        var st = ShareThis({
+            sharers: [ ShareThisViaTwitter, ShareThisViaFacebook, ShareThisViaLinkedIn, ShareThisViaReddit, ShareThisViaEmail ],
+            selector: "#shareable"
+        });
+        st.init();
+        </script>
+    </body>
+</html>
