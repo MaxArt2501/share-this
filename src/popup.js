@@ -1,4 +1,5 @@
-import { getPageScroll, matches, closest } from "./utils";
+import { getPageScroll, matches, closest } from "./dom";
+import { findByName } from "./utils";
 
 export function stylePopup(popup, range, options) {
     popup.className = options.popupClass;
@@ -17,18 +18,24 @@ export function popupClick(sharers, event) {
     if (!item) return;
 
     const via = item.getAttribute("data-share-via");
-    const sharer = findSharer(sharers, via);
+    const sharer = findByName(sharers, via);
     if (!sharer || typeof sharer.action !== "function") return;
 
     sharer.action(event);
 };
 
-function findSharer(sharers, name) {
-    // I would have used
-    //     for (const sharer of sharers)
-    //         if (sharer.name === name) return sharer;
-    // but transpilers generates A LOT of code in this specific case.
-    for (let i = 0; i < sharers.length; i++) {
-        if (sharers[i].name === name) return sharers[i];
-    }
-}
+export function lifeCycleFactory(document) {
+    return {
+        createPopup(sharers) {
+            const popup = document.createElement("div");
+            popup.addEventListener("click", popupClick.bind(null, sharers));
+            return popup;
+        },
+        attachPopup(popup) {
+            document.body.appendChild(popup);
+        },
+        removePopup(popup) {
+            document.body.removeChild(popup);
+        }
+    };
+};

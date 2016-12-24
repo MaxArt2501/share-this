@@ -1,5 +1,5 @@
-import { stylePopup, popupClick } from "./popup";
-import { constrainRange } from "./utils";
+import { stylePopup, lifeCycleFactory } from "./popup";
+import { constrainRange } from "./dom";
 import render from "./render";
 
 let _undefined;
@@ -24,6 +24,7 @@ export default opts => {
     let sharers;
     let createPopup;
     let attachPopup;
+    let removePopup;
 
     return {
         init() {
@@ -38,12 +39,7 @@ export default opts => {
                 _document.addEventListener(type, selectionCheck);
 
             _selection = _window.getSelection();
-            createPopup = _ => {
-                popup = _document.createElement("div");
-                popup.addEventListener("click", popupClick.bind(null, sharers));
-                return popup;
-            };
-            attachPopup = _ => _document.body.appendChild(popup);
+            ({ createPopup, attachPopup, removePopup } = lifeCycleFactory(_document));
 
             initialized = true;
         },
@@ -91,7 +87,7 @@ export default opts => {
     function killPopup() {
         if (!popup) return;
 
-        popup.parentNode && popup.parentNode.removeChild(popup);
+        removePopup(popup);
         popup = sharers = null;
         if (typeof options.onClose === "function")
             options.onClose();
