@@ -1,6 +1,7 @@
 import { expect } from "chai";
+import { env } from "jsdom";
 
-const utils = require("../src/utils");
+import * as utils from "../src/utils";
 
 describe("Package utilities", () => {
     describe("camelize", () => {
@@ -13,6 +14,7 @@ describe("Package utilities", () => {
             expect(utils.camelize("foo-")).to.equal("Foo-");
         });
     });
+
     describe("findByName", () => {
         it("must return the object with the matching name", () => {
             const item = utils.findByName([
