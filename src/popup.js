@@ -1,16 +1,25 @@
 import { getPageScroll, matches, closest } from "./dom";
 import { findByName } from "./utils";
+import { isSelectionForward, getEndLineRect } from "./selection";
 
 export function stylePopup(popup, range, options) {
+    const _document = options.document;
+    const selection = _document.defaultView.getSelection();
+    const isForward = isSelectionForward(selection);
+    const endLineRect = getEndLineRect(range, isForward);
+    const scroll = getPageScroll(_document);
+
+    const style = popup.style;
+    if (isForward) {
+        style.right = `${_document.documentElement.clientWidth - endLineRect.right - scroll.left}px`;
+    } else {
+        style.left = `${scroll.left + endLineRect.left}px`;
+    }
+    style.width = `${endLineRect.right - endLineRect.left}px`;
+    style.top = `${endLineRect.top}px`;
+    style.position = "absolute";
+
     popup.className = options.popupClass;
-
-    const rects = range.getClientRects();
-    const lastRect = rects[rects.length - 1];
-    const scroll = getPageScroll(options.document);
-
-    popup.style.position = "absolute";
-    popup.style.left = `${scroll.left + lastRect.left + lastRect.width/2}px`;
-    popup.style.top = `${scroll.top + lastRect.top}px`;
 };
 
 export function popupClick(sharers, event) {
@@ -35,7 +44,8 @@ export function lifeCycleFactory(document) {
             document.body.appendChild(popup);
         },
         removePopup(popup) {
-            document.body.removeChild(popup);
+            const parent = popup.parentNode;
+            if (parent) parent.removeChild(popup);
         }
     };
 };

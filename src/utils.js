@@ -13,3 +13,14 @@ export function findByName(array, name) {
         }
     }
 };
+
+const extend = Object.assign || function(dest, source) {
+    if (source && typeof source === "object") {
+        for (const prop in source) {
+            dest[prop] = source[prop];
+        }
+    }
+
+    return dest;
+};
+export { extend };

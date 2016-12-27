@@ -2,11 +2,8 @@
 @import "mixins.less";
 
 .share-this-popup {
-    .share-this-transform(translate(-50%, -100%));
     margin-top: @share-this-vertical-offset;
-    background: @share-this-background;
-    color: @share-this-foreground;
-    border-radius: @share-this-border-radius;
+    max-width: @share-this-border-distance * 2;
     -webkit-filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .35));
 
     &::before {
@@ -26,9 +23,16 @@
         list-style: none;
         padding: 0;
         margin: 0;
+        white-space: nowrap;
+        background: @share-this-background;
+        color: @share-this-foreground;
+        border-radius: @share-this-border-radius;
+        position: absolute;
+        left: 50%;
+        .share-this-transform(translate(-50%, -100%));
 
         > li {
-            float: left;
+            display: inline-block;
             width: @share-this-sharer-width;
             height: @share-this-sharer-height;
             line-height: @share-this-sharer-height;

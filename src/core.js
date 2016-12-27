@@ -1,11 +1,12 @@
 import { stylePopup, lifeCycleFactory } from "./popup";
-import { constrainRange } from "./dom";
+import { constrainRange } from "./selection";
+import { extend } from "./utils";
 import render from "./render";
 
 let _undefined;
 
 export default opts => {
-    const options = Object.assign({
+    const options = extend({
         document,
         selector: "body",
         sharers: [],
@@ -78,7 +79,7 @@ export default opts => {
         popup = createPopup();
         popup.innerHTML = render(options, sharers, text, rawText);
         stylePopup(popup, range, options);
-        attachPopup();
+        attachPopup(popup);
 
         if (typeof options.onOpen === "function")
             options.onOpen(popup, text, rawText);
