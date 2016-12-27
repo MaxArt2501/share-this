@@ -1,0 +1,5 @@
+@mixin share-this-transform($transformation...) {
+    -webkit-transform: $transformation;
+        -ms-transform: $transformation;
+            transform: $transformation;
+}
