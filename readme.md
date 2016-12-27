@@ -42,7 +42,7 @@ define([ "share-this" ], shareThis => {
 var shareThis = window.ShareThis;
 ```
 
-`shareThis` is a factory for selected text sharing functionality:
+`shareThis` is a factory for text selection sharing functionality:
 
 ```javascript
 const selectionShare = shareThis({
@@ -140,6 +140,27 @@ LinkedIn | `dist/sharers/linked-in.js` | `linked-in` | `ShareThisViaLinkedIn`
 Reddit   | `dist/sharers/reddit.js`    | `reddit`    | `ShareThisViaReddit`
 Email    | `dist/sharers/email.js`     | `email`     | `ShareThisViaEmail`
 
+
+## Browser support
+
+* Chrome/Opera
+* Firefox 52+ (1)
+* Edge
+* Safari 5.1+
+* Internet Explorer 9+
+
+Notes:
+
+1. Firefox below v52 works *mostly* just fine, but it fails to remove the popup when the selection is modified
+   because it lacks support of the [`selectionchange` event](https://developer.mozilla.org/en-US/docs/Web/Events/selectionchange).
+
+## To do
+
+* More tests (with headless browsers)
+* Fine-tune Babel
+* ESLint
+* Contribution guide lines
+
 ## License
 
-MIT @ Massimo Artizzu 2016. See [LICENSE](LICENSE).
+MIT @ Massimo Artizzu 2016-2017. See [LICENSE](LICENSE).
