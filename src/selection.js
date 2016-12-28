@@ -1,7 +1,8 @@
-import { closest } from "./dom";
+import { closest, contains } from "./dom";
 
 export function isSelectionForward(selection) {
-    if (selection.collapsed) return true;
+    // IE and Edge call it `isCollapsed`
+    if (selection.collapsed || selection.isCollapsed) return true;
 
     const comparedPositions = selection.anchorNode.compareDocumentPosition(selection.focusNode);
     if (!comparedPositions) {
@@ -9,7 +10,7 @@ export function isSelectionForward(selection) {
         return selection.anchorOffset < selection.focusOffset;
     }
 
-    return (comparedPositions & Node.DOCUMENT_POSITION_FOLLOWING) !== 0;
+    return (comparedPositions & 4 /* === Node.DOCUMENT_POSITION_FOLLOWING */) > 0;
 };
 
 const slice = Array.prototype.slice;
@@ -51,8 +52,9 @@ export function constrainRange(range, selector) {
 
     let ancestor = closest(range.startContainer, selector);
     if (ancestor) {
-        if (!ancestor.contains(range.endContainer))
+        if (!contains(ancestor, range.endContainer)) {
             constrainedRange.setEnd(ancestor, ancestor.childNodes.length);
+        }
     } else {
         ancestor = closest(range.endContainer, selector);
         if (ancestor) constrainedRange.setStart(ancestor, 0);

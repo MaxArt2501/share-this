@@ -12,11 +12,17 @@ export function matches(element, selector) {
 
 export function closest(element, selector) {
     let target = element;
-    while (target && (target.nodeType !== Node.ELEMENT_NODE || !matches(target, selector)))
+    while (target && (target.nodeType !== 1 /* === Node.ELEMENT_NODE */ || !matches(target, selector)))
         target = target.parentNode;
 
     return target;
 };
+
+// `contains` in IE doesn't work with text nodes
+export function contains(ancestor, target) {
+    const comparedPositions = ancestor.compareDocumentPosition(target);
+    return !comparedPositions || (comparedPositions & 16 /* === Node.DOCUMENT_POSITION_CONTAINED_BY */) > 0;
+}
 
 function getMatchFunctionName(element) {
     for (const name of [ "matches", "matchesSelector", "webkitMatchesSelector", "mozMatchesSelector", "msMatchesSelector", "oMatchesSelector" ])
