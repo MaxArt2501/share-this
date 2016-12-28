@@ -58,6 +58,7 @@ export function constrainRange(range, selector) {
     } else {
         ancestor = closest(range.endContainer, selector);
         if (ancestor) constrainedRange.setStart(ancestor, 0);
+        else constrainedRange.collapse();
     }
 
     return constrainedRange;
