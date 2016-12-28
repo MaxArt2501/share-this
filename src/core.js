@@ -23,9 +23,7 @@ export default opts => {
 
     let popup;
     let sharers;
-    let createPopup;
-    let attachPopup;
-    let removePopup;
+    let lifeCycle;
 
     return {
         init() {
@@ -35,21 +33,23 @@ export default opts => {
             _window = _document.defaultView;
             if (!_window.getSelection) return console.error("Selection API isn't supported");
 
-            _document.addEventListener("selectionchange", killPopup);
-            for (const type of [ "mouseup", "touchend" ])
-                _document.addEventListener(type, selectionCheck);
+            const addListener = _document.addEventListener.bind(_document);
+            addListener("selectionchange", killPopup);
+            addListener("mouseup", selectionCheck);
+            addListener("touchend", selectionCheck);
 
             _selection = _window.getSelection();
-            ({ createPopup, attachPopup, removePopup } = lifeCycleFactory(_document));
+            lifeCycle = lifeCycleFactory(_document);
 
             initialized = true;
         },
         destroy() {
             if (!initialized || destroyed) return;
 
-            _document.removeEventListener("selectionchange", killPopup);
-            for (const type of [ "mouseup", "touchend" ])
-                _document.removeEventListener(type, selectionCheck);
+            const removeListener = _document.removeEventListener.bind(_document);
+            removeListener("selectionchange", killPopup);
+            removeListener("mouseup", selectionCheck);
+            removeListener("touchend", selectionCheck);
 
             killPopup();
             _selection = _window = _document = null;
@@ -76,10 +76,10 @@ export default opts => {
         sharers = options.sharers.filter(sharerCheck.bind(null, text, rawText));
         if (!sharers.length) return;
 
-        popup = createPopup();
+        popup = lifeCycle.createPopup();
         popup.innerHTML = render(options, sharers, text, rawText);
         stylePopup(popup, range, options);
-        attachPopup(popup);
+        lifeCycle.attachPopup(popup);
 
         if (typeof options.onOpen === "function")
             options.onOpen(popup, text, rawText);
@@ -88,7 +88,7 @@ export default opts => {
     function killPopup() {
         if (!popup) return;
 
-        removePopup(popup);
+        lifeCycle.removePopup(popup);
         popup = sharers = null;
         if (typeof options.onClose === "function")
             options.onClose();
