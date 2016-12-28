@@ -3,7 +3,7 @@ exports.render = function render(text, rawText, refUrl) {
     const url = this.getShareUrl(shareText, refUrl);
 
     return `<a href="${url}" target="_blank" rel="noopener nofollow noreferrer">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 20 20">
             <path d="M16 3.038c-.59.26-1.22.437-1.885.517.677-.407 1.198-1.05 1.443-1.816-.634.37-1.337.64
                 -2.085.79-.598-.64-1.45-1.04-2.396-1.04-1.812 0-3.282 1.47-3.282 3.28 0 .26.03.51.085.75-2.728
                 -.13-5.147-1.44-6.766-3.42C.83 2.58.67 3.14.67 3.75c0 1.14.58 2.143 1.46 2.732-.538-.017-1.045
