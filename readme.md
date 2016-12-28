@@ -3,6 +3,10 @@ share-this
 
 Medium-like text selection sharing without dependencies
 
+[![Version](http://img.shields.io/npm/v/share-this.svg)](https://www.npmjs.org/package/share-this)
+[![Build Status](https://travis-ci.org/MaxArt2501/share-this.svg?branch=master)](https://travis-ci.org/MaxArt2501/share-this)
+[![License Type](https://img.shields.io/github/license/MaxArt2501/share-this.svg)](https://img.shields.io/github/license/MaxArt2501/share-this.svg)
+
 ## Purpose
 
 This lightweight library allows to create a simple interface to share selected text in a page, in the form of a small popup over the selected portion of text.
@@ -16,7 +20,7 @@ Features:
 
 ## Installation
 
-Via npm (soon):
+Via npm:
 
 ```bash
 $ npm install --save share-this
