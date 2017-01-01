@@ -4,7 +4,8 @@
 .share-this-popover {
     margin-top: $share-this-vertical-offset;
     max-width: $share-this-border-distance * 2;
-    -webkit-filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .35));
+    @include share-this-filter(drop-shadow(0 1px 3px rgba(0, 0, 0, .35)));
+    @include share-this-animation(share-this-intro $share-this-animation-length);
 
     &::before {
         content: "";
@@ -51,5 +52,33 @@
                 }
             }
         }
+    }
+}
+
+@-webkit-keyframes share-this-intro {
+    0% {
+        -webkit-transform: translateY(-3em);
+        opacity: 0;
+    }
+    80% {
+        -webkit-transform: translateY(.5em);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes share-this-intro {
+    0% {
+        transform: translateY(-3em);
+        opacity: 0;
+    }
+    80% {
+        transform: translateY(.5em);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
     }
 }

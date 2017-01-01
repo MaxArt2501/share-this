@@ -32,7 +32,7 @@ gulp.task("sharers", () => {
 gulp.task("less", () => {
     gulp.src("./style/less/share-this.less")
         .pipe(less())
-        .pipe(cssnano())
+        .pipe(cssnano({ autoprefixer: false }))
         .pipe(gulp.dest("dist/"))
     ;
 });
