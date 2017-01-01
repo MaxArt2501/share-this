@@ -17,17 +17,17 @@ export default opts => {
     let initialized = false;
     let destroyed = false;
 
-    let _window;
-    let _document;
-    let _selection;
+    let _window = _undefined;
+    let _document = _undefined;
+    let _selection = _undefined;
 
-    let popup;
-    let sharers;
-    let lifeCycle;
+    let popover = _undefined;
+    let sharers = _undefined;
+    let lifeCycle = _undefined;
 
     return {
         init() {
-            if (initialized || destroyed) return;
+            if (initialized) return false;
 
             _document = options.document;
             _window = _document.defaultView;
@@ -41,10 +41,10 @@ export default opts => {
             _selection = _window.getSelection();
             lifeCycle = lifeCycleFactory(_document);
 
-            initialized = true;
+            return initialized = true;
         },
         destroy() {
-            if (!initialized || destroyed) return;
+            if (!initialized || destroyed) return false;
 
             const removeListener = _document.removeEventListener.bind(_document);
             removeListener("selectionchange", killPopover);
@@ -54,7 +54,7 @@ export default opts => {
             killPopover();
             _selection = _window = _document = null;
 
-            destroyed = true;
+            return destroyed = true;
         }
     };
 
