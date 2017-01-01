@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return, no-undef, no-unused-expressions */
 import { parse } from "url";
 
 import { expect } from "chai";
@@ -10,7 +11,7 @@ describe("Email sharer", () => {
         expect(emailSharer.name).to.equal("email");
     });
 
-    it("must render a link with protocol mailto: and no recipient", done => {
+    it("must render a link with protocol mailto: and no recipient", (done) => {
         const html = emailSharer.render("foo", "foo", "path/to/whatever");
         env(html, (err, _window) => {
             if (err) return done(err);

@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return, no-undef, no-unused-expressions */
 import { parse } from "url";
 
 import { expect } from "chai";
@@ -12,7 +13,7 @@ describe("Twitter sharer", () => {
         expect(twitterSharer.name).to.equal("twitter");
     });
 
-    it("must render a link to Twitter", done => {
+    it("must render a link to Twitter", (done) => {
         const html = twitterSharer.render("foo", "foo", "path/to/whatever");
         env(html, (err, _window) => {
             if (err) return done(err);

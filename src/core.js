@@ -5,7 +5,7 @@ import render from "./render";
 
 let _undefined;
 
-export default opts => {
+export default (opts) => {
     const options = extend({
         document,
         selector: "body",
@@ -31,7 +31,11 @@ export default opts => {
 
             _document = options.document;
             _window = _document.defaultView;
-            if (!_window.getSelection) return console.error("Selection API isn't supported");
+            if (!_window.getSelection) {
+                // eslint-disable-next-line no-console
+                console.error("Selection API isn't supported");
+                return false;
+            }
 
             const addListener = _document.addEventListener.bind(_document);
             addListener("selectionchange", killPopover);
@@ -60,9 +64,16 @@ export default opts => {
 
     function selectionCheck() {
         const range = _selection.rangeCount && _selection.getRangeAt(0);
-        if (!range) return killPopover();
+        if (!range) {
+            killPopover();
+            return;
+        }
+
         const constrainedRange = constrainRange(range, options.selector);
-        if (constrainedRange.collapsed) return killPopover();
+        if (constrainedRange.collapsed) {
+            killPopover();
+            return;
+        }
 
         drawPopover(constrainedRange);
     }
@@ -81,8 +92,9 @@ export default opts => {
         stylePopover(popover, range, options);
         lifeCycle.attachPopover(popover);
 
-        if (typeof options.onOpen === "function")
+        if (typeof options.onOpen === "function") {
             options.onOpen(popover, text, rawText);
+        }
     }
 
     function killPopover() {
@@ -90,16 +102,19 @@ export default opts => {
 
         lifeCycle.removePopover(popover);
         popover = sharers = null;
-        if (typeof options.onClose === "function")
+        if (typeof options.onClose === "function") {
             options.onClose();
+        }
     }
 
     function sharerCheck(text, rawText, sharer) {
-        if (typeof sharer.active === "function")
+        if (typeof sharer.active === "function") {
             return sharer.active(text, rawText);
+        }
 
-        if (sharer.active !== _undefined)
+        if (sharer.active !== _undefined) {
             return sharer.active;
+        }
 
         return true;
     }

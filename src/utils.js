@@ -1,7 +1,8 @@
 export function camelize(string) {
     return string.replace(/(?:^|-)([a-z])/g, (_, char) => char.toUpperCase());
-};
+}
 
+// eslint-disable-next-line consistent-return
 export function findByName(array, name) {
     // I would have used
     //    for (const item of array) {
@@ -12,11 +13,14 @@ export function findByName(array, name) {
             return item;
         }
     }
-};
+}
 
+// eslint-disable-next-line func-names
 const extend = Object.assign || function(dest, source) {
     if (source && typeof source === "object") {
+        // eslint-disable-next-line guard-for-in
         for (const prop in source) {
+            // eslint-disable-next-line no-param-reassign
             dest[prop] = source[prop];
         }
     }

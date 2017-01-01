@@ -10,20 +10,21 @@ export function render(text, rawText, refUrl) {
                 + ".614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377z"
                 + "m1.188 8.68H2.37V6h2.376v7.635z\" fill=\"currentcolor\"/>"
         + "</svg></a>";
-};
+}
 
 const CHAR_LIMIT = 250;
 export function getText(text) {
     let chunk = text.trim();
-    if (chunk.length > CHAR_LIMIT - 2)
+    if (chunk.length > CHAR_LIMIT - 2) {
         chunk = chunk.slice(0, CHAR_LIMIT - 3).trim() + "\u2026";
+    }
 
     return `\u201c${chunk}\u201d`;
-};
+}
 
 export function getShareUrl(text, refUrl) {
     return `https://www.linkedin.com/shareArticle?mini=true&summary=${encodeURIComponent(text)}&url=${encodeURIComponent(refUrl)}`;
-};
+}
 
 export function action(event) {
     event.preventDefault();
@@ -32,6 +33,6 @@ export function action(event) {
         "share_via_linked_in",
         "height=440,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,width=640"
     );
-};
+}
 
 export const name = "linked-in";

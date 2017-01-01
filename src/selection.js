@@ -10,8 +10,9 @@ export function isSelectionForward(selection) {
         return selection.anchorOffset < selection.focusOffset;
     }
 
+    // eslint-disable-next-line no-bitwise
     return (comparedPositions & 4 /* === Node.DOCUMENT_POSITION_FOLLOWING */) > 0;
-};
+}
 
 const slice = Array.prototype.slice;
 export function getEndLineRect(range, isForward) {
@@ -44,7 +45,7 @@ export function getEndLineRect(range, isForward) {
         left: endLineRects[0].left,
         right: endLineRects[endLineRects.length - 1].right
     };
-};
+}
 
 export function constrainRange(range, selector) {
     const constrainedRange = range.cloneRange();
@@ -62,4 +63,4 @@ export function constrainRange(range, selector) {
     }
 
     return constrainedRange;
-};
+}

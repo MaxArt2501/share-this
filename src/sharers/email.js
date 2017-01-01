@@ -7,10 +7,10 @@ export function render(text, rawText, refUrl) {
                 + "c0-.553-.447-1-1-1H1zm68.816 6L39 40.594 8.184 18h61.632zM72 60H6V23.84"
                 + "l29.452 21.593 3.548 2.6 3.548-2.6L72 23.838V60z\" fill=\"currentcolor\"/>"
         + "</svg></a>";
-};
+}
 
 export function getShareUrl(text, refUrl) {
     return `mailto:?body=${encodeURIComponent(text)}%0a%0a${encodeURIComponent(refUrl)}`;
-};
+}
 
 export const name = "email";

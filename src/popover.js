@@ -1,4 +1,4 @@
-import { getPageScroll, matches, closest } from "./dom";
+import { getPageScroll, closest } from "./dom";
 import { findByName } from "./utils";
 import { isSelectionForward, getEndLineRect } from "./selection";
 
@@ -19,8 +19,9 @@ export function stylePopover(popover, range, options) {
     style.top = `${endLineRect.top}px`;
     style.position = "absolute";
 
+    // eslint-disable-next-line no-param-reassign
     popover.className = options.popoverClass;
-};
+}
 
 export function popoverClick(sharers, event) {
     const item = closest(event.target, "[data-share-via]");
@@ -31,7 +32,7 @@ export function popoverClick(sharers, event) {
     if (!sharer || typeof sharer.action !== "function") return;
 
     sharer.action.call(item, event);
-};
+}
 
 export function lifeCycleFactory(document) {
     return {
@@ -48,7 +49,7 @@ export function lifeCycleFactory(document) {
             if (parent) parent.removeChild(popover);
         }
     };
-};
+}
 
 export function windowOpener(name) {
     return (event, item) => {
@@ -59,4 +60,4 @@ export function windowOpener(name) {
             "height=440,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,width=640"
         );
     };
-};
+}

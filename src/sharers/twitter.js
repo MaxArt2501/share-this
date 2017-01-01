@@ -11,20 +11,21 @@ export function render(text, rawText, refUrl) {
                 + "-.058.42 1.304 1.63 2.253 3.07 2.28-1.12.88-2.54 1.404-4.07 1.404-.26 0-.52-.015-.78-.045 1.46"
                 + ".93 3.18 1.474 5.04 1.474 6.04 0 9.34-5 9.34-9.33 0-.14 0-.28-.01-.42.64-.46 1.2-1.04 1.64-1.7z\" fill=\"currentcolor\"/>"
         + "</svg></a>";
-};
+}
 
 const CHAR_LIMIT = 120;
 export function getText(text) {
     let chunk = text.trim();
-    if (chunk.length > CHAR_LIMIT - 2)
+    if (chunk.length > CHAR_LIMIT - 2) {
         chunk = chunk.slice(0, CHAR_LIMIT - 3).trim() + "\u2026";
+    }
 
     return `\u201c${chunk}\u201d`;
-};
+}
 
 export function getShareUrl(text, refUrl) {
     return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(refUrl)}`;
-};
+}
 
 export function action(event, item) {
     event.preventDefault();
@@ -33,6 +34,6 @@ export function action(event, item) {
         "share_via_twitter",
         "height=440,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,width=640"
     );
-};
+}
 
 export const name = "twitter";

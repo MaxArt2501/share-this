@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return, no-undef, no-unused-expressions */
 import { expect } from "chai";
 import { env } from "jsdom";
 
@@ -22,7 +23,7 @@ describe("Rendering engine", () => {
         const result = render({ document: fakeDocument }, [], "foo", "foo");
         expect(result).to.be.a("string");
     });
-    it("must build a list with an item for every sharer", done => {
+    it("must build a list with an item for every sharer", (done) => {
         const result = render({ document: fakeDocument }, fakeSharers, "example", "example");
         env(result, (err, _window) => {
             if (err) {

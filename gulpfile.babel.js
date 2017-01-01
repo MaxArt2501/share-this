@@ -13,21 +13,23 @@ import buffer from "vinyl-buffer";
 import less from "gulp-less";
 import cssnano from "gulp-cssnano";
 
+import eslint from "gulp-eslint";
+
 import { camelize } from "./src/utils";
 
-gulp.task("js", _ => {
+gulp.task("js", () => {
     buildJsEntry("./src/core.js", "share-this", "ShareThis", "dist/");
 });
 
-gulp.task("sharers", _ => {
-    readdirSync("./src/sharers").forEach(file => {
+gulp.task("sharers", () => {
+    readdirSync("./src/sharers").forEach((file) => {
         const name = file.replace(/\.js$/i, "");
         if (name === file) return;
         buildJsEntry(`./src/sharers/${file}`, name, `ShareThisVia${camelize(name)}`, "dist/sharers/");
     });
 });
 
-gulp.task("less", _ => {
+gulp.task("less", () => {
     gulp.src("./style/less/share-this.less")
         .pipe(less())
         .pipe(cssnano())
@@ -35,7 +37,17 @@ gulp.task("less", _ => {
     ;
 });
 
-gulp.task("default", _ => {
+gulp.task("lint", () => {
+    const result = gulp
+        .src([ "./src/**/*.js", "./test/**/**.js", "./gulpfile.babel.js" ])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
+
+    return result;
+});
+
+gulp.task("default", [ "lint" ], () => {
     gulp.start("js");
     gulp.start("sharers");
     gulp.start("less");
@@ -43,9 +55,9 @@ gulp.task("default", _ => {
 
 function buildJsEntry(file, name, standalone, output) {
     browserify({
-            entries: [ file ],
-            standalone
-        })
+        entries: [ file ],
+        standalone
+    })
         .transform(rollupify)
         .transform(babelify)
         .bundle()

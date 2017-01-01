@@ -28,19 +28,20 @@ export function render(text, rawText, refUrl) {
                 + "16.6 40.2s-5.5 29.3-16.6 40.8c-11.1 11.5-24.5 17.2-40.2 17.2-15.7 0-29.1-5.7"
                 + "-40.2-17.2-11.1-11.5-16.6-25.1-16.6-40.8s5.5-29.1 16.6-40.2c11.1-11 24.5-16.6 40.2-16.6z\" fill=\"currentcolor\"/>"
         + "</svg></a>";
-};
+}
 
 const CHAR_LIMIT = 120;
 export function getText(text) {
     let chunk = text.trim();
-    if (chunk.length > CHAR_LIMIT - 2)
+    if (chunk.length > CHAR_LIMIT - 2) {
         chunk = chunk.slice(0, CHAR_LIMIT - 3).trim() + "\u2026";
+    }
 
     return `\u201c${chunk}\u201d`;
-};
+}
 
 export function getShareUrl(text, refUrl) {
     return `https://reddit.com/submit?title=${encodeURIComponent(text)}&url=${encodeURIComponent(refUrl)}`;
-};
+}
 
 export const name = "reddit";

@@ -1,5 +1,5 @@
+/* eslint-disable consistent-return, no-undef, no-unused-expressions */
 import { expect } from "chai";
-import { env } from "jsdom";
 
 import * as utils from "../src/utils";
 

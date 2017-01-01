@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return, no-undef, no-unused-expressions */
 import { expect } from "chai";
 import { env } from "jsdom";
 
@@ -29,15 +30,14 @@ describe("DOM utilities", () => {
     });
 
     describe("matches", () => {
-        it("must work like `Element.prototype.matches`", done => {
+        it("must work like `Element.prototype.matches`", (done) => {
             env("<div class='wrapper' id='main'><span class='foo'>Bar</span></div>", (err, _window) => {
                 expect(err).to.be.null;
 
                 const selectorMatches = {
                     ".foo": ".wrapper > span",
-                    "span": "div *",
-                    "#main": "main",
-                    "span": "#main > span"
+                    span: "#main > span",
+                    "#main": "main"
                 };
 
                 for (const selector of Object.keys(selectorMatches)) {
@@ -59,7 +59,7 @@ describe("DOM utilities", () => {
     });
 
     describe("closest", () => {
-        it("must return the closest matching ancestor", done => {
+        it("must return the closest matching ancestor", (done) => {
             env("<div class='wrapper' id='main'><span class='foo'>Bar</span></div>", (err, _window) => {
                 expect(err).to.be.null;
 
@@ -72,7 +72,7 @@ describe("DOM utilities", () => {
                 done();
             });
         });
-        it("must return null if no ancestor matches the selector", done => {
+        it("must return null if no ancestor matches the selector", (done) => {
             env("<div class='wrapper' id='main'><span class='foo'>Bar</span></div>", (err, _window) => {
                 expect(err).to.be.null;
 
@@ -87,7 +87,7 @@ describe("DOM utilities", () => {
     });
 
     describe("contains", () => {
-        it("must return true if and only if the ancestor contains the target or it's the same node", done => {
+        it("must return true if and only if the ancestor contains the target or it's the same node", (done) => {
             env("<div class='wrapper' id='main'><span class='foo'>Bar</span></div>", (err, _window) => {
                 expect(err).to.be.null;
 
@@ -101,7 +101,7 @@ describe("DOM utilities", () => {
                 done();
             });
         });
-        it("must work with any kind of node", done => {
+        it("must work with any kind of node", (done) => {
             env("<div class='wrapper' id='main'><span class='foo'>Bar</span><!-- A comment --></div>", (err, _window) => {
                 expect(err).to.be.null;
 

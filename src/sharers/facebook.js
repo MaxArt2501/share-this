@@ -7,11 +7,11 @@ export function render(text, rawText, refUrl) {
                 + "0 1.642.064 1.863.094v2.16h-1.28c-1 0-1.195.48-1.195 1.18v1.54h2.39l-.31 2.42"
                 + "h-2.08V16\" fill=\"currentcolor\"/>"
         + "</svg></a>";
-};
+}
 
 export function getShareUrl(text, refUrl) {
     return `https://www.facebook.com/sharer/sharer.php?quote=${encodeURIComponent(text)}&u=${encodeURIComponent(refUrl)}`;
-};
+}
 
 export function action(event, item) {
     event.preventDefault();
@@ -20,6 +20,6 @@ export function action(event, item) {
         "share_via_facebook",
         "height=440,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,width=640"
     );
-};
+}
 
 export const name = "facebook";

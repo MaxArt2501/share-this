@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return, no-undef, no-unused-expressions */
 import { expect } from "chai";
 import { env } from "jsdom";
 
@@ -10,34 +11,34 @@ describe("Popover methods", () => {
             const result = popover.lifeCycleFactory(null);
             expect(result).to.be.an("object");
         });
-        it("must create an object with a createPopover method", done => {
-            initLifeCycle(result => {
+        it("must create an object with a createPopover method", (done) => {
+            initLifeCycle((result) => {
                 expect(result.createPopover).to.be.a("function");
                 done();
             });
         });
-        it("must create an object with an attachPopover method", done => {
-            initLifeCycle(result => {
+        it("must create an object with an attachPopover method", (done) => {
+            initLifeCycle((result) => {
                 expect(result.attachPopover).to.be.a("function");
                 done();
             });
         });
-        it("must create an object with a removePopover method", done => {
-            initLifeCycle(result => {
+        it("must create an object with a removePopover method", (done) => {
+            initLifeCycle((result) => {
                 expect(result.removePopover).to.be.a("function");
                 done();
             });
         });
 
         describe("createPopover", () => {
-            it("must create a DOM element", done => {
+            it("must create a DOM element", (done) => {
                 initLifeCycle((result, _window) => {
                     const element = result.createPopover();
                     expect(element instanceof _window.HTMLElement).to.be.true;
                     done();
                 });
             });
-            it("must attach an onclick event listener to the created element", done => {
+            it("must attach an onclick event listener to the created element", (done) => {
                 let attached = false;
                 const fakeElement = {
                     addEventListener(type, fn) {
@@ -60,7 +61,7 @@ describe("Popover methods", () => {
             });
         });
         describe("attachPopover", () => {
-            it("must append the given element to document.body", done => {
+            it("must append the given element to document.body", (done) => {
                 initLifeCycle((result, _window) => {
                     const fakePopover = _window.document.createElement("foo");
                     result.attachPopover(fakePopover);
@@ -70,7 +71,7 @@ describe("Popover methods", () => {
             });
         });
         describe("removePopover", () => {
-            it("must detach the given element from document.body", done => {
+            it("must detach the given element from document.body", (done) => {
                 initLifeCycle((result, _window) => {
                     const body = _window.document.body;
                     const fakePopover = body.firstChild;

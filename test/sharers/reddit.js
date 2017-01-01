@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return, no-undef, no-unused-expressions */
 import { parse } from "url";
 
 import { expect } from "chai";
@@ -12,7 +13,7 @@ describe("Reddit sharer", () => {
         expect(redditSharer.name).to.equal("reddit");
     });
 
-    it("must render a link to Reddit", done => {
+    it("must render a link to Reddit", (done) => {
         const html = redditSharer.render("foo", "foo", "path/to/whatever");
         env(html, (err, _window) => {
             if (err) return done(err);
