@@ -1,7 +1,7 @@
 @import "vars";
 @import "mixins";
 
-.share-this-popup {
+.share-this-popover {
     margin-top: $share-this-vertical-offset;
     max-width: $share-this-border-distance * 2;
     -webkit-filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .35));

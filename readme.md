@@ -9,14 +9,14 @@ Medium-like text selection sharing without dependencies
 
 ## Purpose
 
-This lightweight library allows to create a simple interface to share selected text in a page, in the form of a small popup over the selected portion of text.
+This lightweight library allows to create a simple interface to share selected text in a page, in the form of a small popover over the selected portion of text.
 
 Features:
 
 * customizable sharing channels ("sharers")
 * restriction on selected elements
 * customizable CSS classes and stylesheets
-* hooks on opening and closing the popup, and on sharing action
+* hooks on opening and closing the popover, and on sharing action
 
 ## Installation
 
@@ -60,7 +60,7 @@ selectionShare.init();
 These are the options for the factory:
 
 * `document`: the `Document` object to apply the sharing functionality (default: `document`);
-* `popupClass`: the class name (or names) to be used in the root element of the popup (default: `share-this-popup`);
+* `popoverClass`: the class name (or names) to be used in the root element of the popover (default: `share-this-popover`);
 * `selector`: restricts the shared text to the contents of the elements matching `selector` (default: `"body"`);
 * `sharers`: an array of sharing channels (Twitter, Facebook, email...); see later for details;
 * `shareUrl`: a reference URL for the shared text (default: the `location` object of the `document` property);
@@ -155,7 +155,7 @@ Email    | `dist/sharers/email.js`     | `email`     | `ShareThisViaEmail`
 
 Notes:
 
-1. Firefox below v52 works *mostly* just fine, but it fails to remove the popup when the selection is modified
+1. Firefox below v52 works *mostly* just fine, but it fails to remove the popover when the selection is modified
    because it lacks support of the [`selectionchange` event](https://developer.mozilla.org/en-US/docs/Web/Events/selectionchange).
 
 ## To do

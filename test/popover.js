@@ -1,38 +1,38 @@
 import { expect } from "chai";
 import { env } from "jsdom";
 
-import * as popup from "../src/popup";
+import * as popover from "../src/popover";
 
-describe("Popup methods", () => {
+describe("Popover methods", () => {
     describe("lifeCycleFactory", () => {
         it("must be a factory function", () => {
-            expect(popup.lifeCycleFactory).to.be.a("function");
-            const result = popup.lifeCycleFactory(null);
+            expect(popover.lifeCycleFactory).to.be.a("function");
+            const result = popover.lifeCycleFactory(null);
             expect(result).to.be.an("object");
         });
-        it("must create an object with a createPopup method", done => {
+        it("must create an object with a createPopover method", done => {
             initLifeCycle(result => {
-                expect(result.createPopup).to.be.a("function");
+                expect(result.createPopover).to.be.a("function");
                 done();
             });
         });
-        it("must create an object with an attachPopup method", done => {
+        it("must create an object with an attachPopover method", done => {
             initLifeCycle(result => {
-                expect(result.attachPopup).to.be.a("function");
+                expect(result.attachPopover).to.be.a("function");
                 done();
             });
         });
-        it("must create an object with a removePopup method", done => {
+        it("must create an object with a removePopover method", done => {
             initLifeCycle(result => {
-                expect(result.removePopup).to.be.a("function");
+                expect(result.removePopover).to.be.a("function");
                 done();
             });
         });
 
-        describe("createPopup", () => {
+        describe("createPopover", () => {
             it("must create a DOM element", done => {
                 initLifeCycle((result, _window) => {
-                    const element = result.createPopup();
+                    const element = result.createPopover();
                     expect(element instanceof _window.HTMLElement).to.be.true;
                     done();
                 });
@@ -53,30 +53,30 @@ describe("Popup methods", () => {
                         return fakeElement;
                     }
                 };
-                const { createPopup } = popup.lifeCycleFactory(fakeDocument);
-                const fakePopup = createPopup();
-                expect(fakePopup).to.equal(fakeElement);
+                const { createPopover } = popover.lifeCycleFactory(fakeDocument);
+                const fakePopover = createPopover();
+                expect(fakePopover).to.equal(fakeElement);
                 done();
             });
         });
-        describe("attachPopup", () => {
+        describe("attachPopover", () => {
             it("must append the given element to document.body", done => {
                 initLifeCycle((result, _window) => {
-                    const fakePopup = _window.document.createElement("foo");
-                    result.attachPopup(fakePopup);
-                    expect(fakePopup.parentNode).to.equal(_window.document.body);
+                    const fakePopover = _window.document.createElement("foo");
+                    result.attachPopover(fakePopover);
+                    expect(fakePopover.parentNode).to.equal(_window.document.body);
                     done();
                 });
             });
         });
-        describe("removePopup", () => {
+        describe("removePopover", () => {
             it("must detach the given element from document.body", done => {
                 initLifeCycle((result, _window) => {
                     const body = _window.document.body;
-                    const fakePopup = body.firstChild;
-                    result.removePopup(fakePopup);
+                    const fakePopover = body.firstChild;
+                    result.removePopover(fakePopover);
                     expect(body.childNodes.length).to.equal(0);
-                    expect(fakePopup.parentNode).to.be.null;
+                    expect(fakePopover.parentNode).to.be.null;
                     done();
                 });
             });
@@ -90,7 +90,7 @@ function initLifeCycle(callback) {
     env(fakeHTML, (err, _window) => {
         expect(err).to.be.null;
 
-        const result = popup.lifeCycleFactory(_window.document);
+        const result = popover.lifeCycleFactory(_window.document);
         callback(result, _window);
     });
 }

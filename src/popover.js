@@ -2,14 +2,14 @@ import { getPageScroll, matches, closest } from "./dom";
 import { findByName } from "./utils";
 import { isSelectionForward, getEndLineRect } from "./selection";
 
-export function stylePopup(popup, range, options) {
+export function stylePopover(popover, range, options) {
     const _document = options.document;
     const selection = _document.defaultView.getSelection();
     const isForward = isSelectionForward(selection);
     const endLineRect = getEndLineRect(range, isForward);
     const scroll = getPageScroll(_document);
 
-    const style = popup.style;
+    const style = popover.style;
     if (isForward) {
         style.right = `${_document.documentElement.clientWidth - endLineRect.right - scroll.left}px`;
     } else {
@@ -19,10 +19,10 @@ export function stylePopup(popup, range, options) {
     style.top = `${endLineRect.top}px`;
     style.position = "absolute";
 
-    popup.className = options.popupClass;
+    popover.className = options.popoverClass;
 };
 
-export function popupClick(sharers, event) {
+export function popoverClick(sharers, event) {
     const item = closest(event.target, "[data-share-via]");
     if (!item) return;
 
@@ -30,22 +30,33 @@ export function popupClick(sharers, event) {
     const sharer = findByName(sharers, via);
     if (!sharer || typeof sharer.action !== "function") return;
 
-    sharer.action(event);
+    sharer.action.call(item, event);
 };
 
 export function lifeCycleFactory(document) {
     return {
-        createPopup(sharers) {
-            const popup = document.createElement("div");
-            popup.addEventListener("click", popupClick.bind(null, sharers));
-            return popup;
+        createPopover(sharers) {
+            const popover = document.createElement("div");
+            popover.addEventListener("click", popoverClick.bind(null, sharers));
+            return popover;
         },
-        attachPopup(popup) {
-            document.body.appendChild(popup);
+        attachPopover(popover) {
+            document.body.appendChild(popover);
         },
-        removePopup(popup) {
-            const parent = popup.parentNode;
-            if (parent) parent.removeChild(popup);
+        removePopover(popover) {
+            const parent = popover.parentNode;
+            if (parent) parent.removeChild(popover);
         }
+    };
+};
+
+export function windowOpener(name) {
+    return (event, item) => {
+        event.preventDefault();
+        item.ownerDocument.defaultView.open(
+            item.firstChild.href,
+            `share_via_${name}`,
+            "height=440,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,width=640"
+        );
     };
 };

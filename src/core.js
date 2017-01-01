@@ -1,4 +1,4 @@
-import { stylePopup, lifeCycleFactory } from "./popup";
+import { stylePopover, lifeCycleFactory } from "./popover";
 import { constrainRange } from "./selection";
 import { extend } from "./utils";
 import render from "./render";
@@ -10,7 +10,7 @@ export default opts => {
         document,
         selector: "body",
         sharers: [],
-        popupClass: "share-this-popup",
+        popoverClass: "share-this-popover",
         transformer: raw => raw.trim().replace(/\s+/g, " ")
     }, opts || {});
 
@@ -34,7 +34,7 @@ export default opts => {
             if (!_window.getSelection) return console.error("Selection API isn't supported");
 
             const addListener = _document.addEventListener.bind(_document);
-            addListener("selectionchange", killPopup);
+            addListener("selectionchange", killPopover);
             addListener("mouseup", selectionCheck);
             addListener("touchend", selectionCheck);
 
@@ -47,11 +47,11 @@ export default opts => {
             if (!initialized || destroyed) return;
 
             const removeListener = _document.removeEventListener.bind(_document);
-            removeListener("selectionchange", killPopup);
+            removeListener("selectionchange", killPopover);
             removeListener("mouseup", selectionCheck);
             removeListener("touchend", selectionCheck);
 
-            killPopup();
+            killPopover();
             _selection = _window = _document = null;
 
             destroyed = true;
@@ -60,15 +60,15 @@ export default opts => {
 
     function selectionCheck() {
         const range = _selection.rangeCount && _selection.getRangeAt(0);
-        if (!range) return killPopup();
+        if (!range) return killPopover();
         const constrainedRange = constrainRange(range, options.selector);
-        if (constrainedRange.collapsed) return killPopup();
+        if (constrainedRange.collapsed) return killPopover();
 
-        drawPopup(constrainedRange);
+        drawPopover(constrainedRange);
     }
 
-    function drawPopup(range) {
-        if (popup) return;
+    function drawPopover(range) {
+        if (popover) return;
 
         const rawText = range.toString();
         const text = options.transformer(rawText);
@@ -76,20 +76,20 @@ export default opts => {
         sharers = options.sharers.filter(sharerCheck.bind(null, text, rawText));
         if (!sharers.length) return;
 
-        popup = lifeCycle.createPopup();
-        popup.innerHTML = render(options, sharers, text, rawText);
-        stylePopup(popup, range, options);
-        lifeCycle.attachPopup(popup);
+        popover = lifeCycle.createPopover(sharers);
+        popover.innerHTML = render(options, sharers, text, rawText);
+        stylePopover(popover, range, options);
+        lifeCycle.attachPopover(popover);
 
         if (typeof options.onOpen === "function")
-            options.onOpen(popup, text, rawText);
+            options.onOpen(popover, text, rawText);
     }
 
-    function killPopup() {
-        if (!popup) return;
+    function killPopover() {
+        if (!popover) return;
 
-        lifeCycle.removePopup(popup);
-        popup = sharers = null;
+        lifeCycle.removePopover(popover);
+        popover = sharers = null;
         if (typeof options.onClose === "function")
             options.onClose();
     }
