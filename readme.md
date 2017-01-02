@@ -99,9 +99,10 @@ A unique string (among the sharers) that identify the sharer (e.g.: `"twitter"`,
 This property could actually be a function (with the above signature) or a boolean, stating if the sharer is enabled (`true`) or not.
 If it's a function, it should return a truthy or falsy value, with the same meaning.
 
-### `action(event)` (optional)
+### `action(event, item)` (optional)
 
-A function to be called when the user clicks/taps on the sharing button. The `event`'s default is *not* prevented.
+A function to be called when the user clicks/taps on the sharing button. The `event`'s default is *not* prevented. `item` is the
+`<li>` element that wraps the sharer's button.
 
 
 ## Using the sharers
