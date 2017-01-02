@@ -32,6 +32,7 @@
     "browserify": "^13.1.1",
     "chai": "^3.5.0",
     "eslint-config-airbnb-base": "^11.0.0",
+    "eslint-plugin-import": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-cssnano": "^2.1.2",
     "gulp-eslint": "^3.0.1",
@@ -42,8 +43,5 @@
     "rollupify": "^0.3.6",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
-  },
-  "peerDependencies": {
-    "eslint-plugin-import": "^2.2.0"
   }
 }
