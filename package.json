@@ -17,6 +17,8 @@
   },
   "license": "MIT",
   "scripts": {
+    "prepublish": "npm test",
+    "preversion": "npm test",
     "test": "node_modules/.bin/mocha --compilers js:babel-register test/*.js test/sharers/*.js"
   },
   "repository": {
