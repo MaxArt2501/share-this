@@ -26,6 +26,13 @@ Via npm:
 $ npm install --save share-this
 ```
 
+Via bower:
+
+```bash
+$ bower install share-this
+```
+
+
 ## Usage
 
 The library is in UMD format, so feel free to use the module loader of your choice:

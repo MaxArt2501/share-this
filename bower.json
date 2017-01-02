@@ -1,0 +1,38 @@
+{
+  "name": "share-this",
+  "homepage": "https://github.com/MaxArt2501/share-this",
+  "authors": [
+    "Massimo Artizzu <maxart.x@gmail.com>"
+  ],
+  "description": "Medium-like text selection sharing without dependencies",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MaxArt2501/share-this.git"
+  },
+  "main": [
+      "dist/share-this.js",
+      "dist/share-this.css"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node",
+    "es6"
+  ],
+  "keywords": [
+    "medium",
+    "popover",
+    "selection",
+    "share",
+    "sharing",
+    "text"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "gulpfile.babel.js",
+    "yarn.lock",
+    "node_modules",
+    "test"
+  ]
+}
