@@ -1,3 +1,12 @@
+# 1.0.3
+
+* Switched from Browserify + Rollup to just Rollup
+
+# 1.0.2
+
+* Added Bower support
+* Minor fixes and optimizations
+
 # 1.0.1
 
 * Fixed bug on sharers' `action` event

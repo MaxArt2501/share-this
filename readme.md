@@ -18,6 +18,8 @@ Features:
 * customizable CSS classes and stylesheets
 * hooks on opening and closing the popover, and on sharing action
 
+All in a tiny library (less than 1.8 KB minified and gzipped, plus less than 0.5 KB for the optional provided style sheet and 0.5-1.3 KB for the sample sharers).
+
 ## Installation
 
 Via npm:
@@ -153,6 +155,18 @@ Reddit   | `dist/sharers/reddit.js`    | `reddit`    | `ShareThisViaReddit`
 Email    | `dist/sharers/email.js`     | `email`     | `ShareThisViaEmail`
 
 
+## Developer friendly
+
+This library's source code (that can be found in the [src](src/) folder) uses ES2015 profusely, including ES2015 module definition and loading.
+This means that, at the moment, its modules can't be `require`d without prior transpilation, but this also mean that this library is ready for
+when environments will finally support ES2015 modules.
+
+The `"module"` property is defined in [package.json](package.json) for those module loaders that support it
+([Rollup](https://github.com/rollup/rollup), for example, which is also used to bundle the library).
+
+Source files for style sheets are also provided in both [LESS](style/less) and [SCSS](style/scss) form.
+
+
 ## Browser support
 
 * Chrome/Opera
@@ -170,8 +184,8 @@ Notes:
 
 * More tests (with headless browsers)
 * Fine-tune Babel
-* ESLint
 * Contribution guide lines
+* Specific mobile support
 
 ## License
 
