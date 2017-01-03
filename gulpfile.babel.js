@@ -3,9 +3,8 @@ import { readdirSync } from "fs";
 import gulp from "gulp";
 
 import uglify from "gulp-uglify";
-import browserify from "browserify";
-import babelify from "babelify";
-import rollupify from "rollupify";
+import rollup from "rollup-stream";
+import babel from "rollup-plugin-babel";
 
 import source from "vinyl-source-stream";
 import buffer from "vinyl-buffer";
@@ -54,13 +53,15 @@ gulp.task("default", [ "lint" ], () => {
 });
 
 function buildJsEntry(file, name, standalone, output) {
-    browserify({
-        entries: [ file ],
-        standalone
+    rollup({
+        entry: file,
+        format: "umd",
+        moduleName: standalone,
+        plugins: [ babel({
+            babelrc: false,
+            presets: [ [ "es2015", { modules: false }] ]
+        }) ]
     })
-        .transform(rollupify)
-        .transform(babelify)
-        .bundle()
         .pipe(source(`${name}.js`))
         .pipe(buffer())
         .pipe(uglify())
