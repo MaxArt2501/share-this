@@ -1,8 +1,7 @@
 import { closest, contains } from "./dom";
 
 export function isSelectionForward(selection) {
-    // IE and Edge call it `isCollapsed`
-    if (selection.collapsed || selection.isCollapsed) return true;
+    if (selection.isCollapsed) return true;
 
     const comparedPositions = selection.anchorNode.compareDocumentPosition(selection.focusNode);
     if (!comparedPositions) {
