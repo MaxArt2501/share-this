@@ -22,7 +22,6 @@ export default (opts) => {
     let _selection = _undefined;
 
     let popover = _undefined;
-    let sharers = _undefined;
     let lifeCycle = _undefined;
 
     return {
@@ -84,7 +83,7 @@ export default (opts) => {
         const rawText = range.toString();
         const text = options.transformer(rawText);
 
-        sharers = options.sharers.filter(sharerCheck.bind(null, text, rawText));
+        const sharers = options.sharers.filter(sharerCheck.bind(null, text, rawText));
         if (!sharers.length) return;
 
         popover = lifeCycle.createPopover(sharers);
@@ -101,7 +100,7 @@ export default (opts) => {
         if (!popover) return;
 
         lifeCycle.removePopover(popover);
-        popover = sharers = null;
+        popover = null;
         if (typeof options.onClose === "function") {
             options.onClose();
         }
