@@ -2,7 +2,6 @@
 @import "mixins";
 
 .share-this-popover {
-    margin-top: $share-this-vertical-offset;
     max-width: $share-this-border-distance * 2;
     @include share-this-filter(drop-shadow(0 1px 3px rgba(0, 0, 0, .35)));
     @include share-this-animation(share-this-intro $share-this-animation-length);
@@ -10,11 +9,11 @@
     &::before {
         content: "";
         position: absolute;
-        top: 100%;
+        bottom: 100%;
         left: 50%;
         width: 0;
         height: 0;
-        margin-left: -$share-this-arrow-size;
+        margin: $share-this-vertical-offset + $share-this-arrow-size (-$share-this-arrow-size);
         border-width: $share-this-arrow-size $share-this-arrow-size 0;
         border-style: solid;
         border-color: $share-this-background transparent;
@@ -23,7 +22,7 @@
     > ul {
         list-style: none;
         padding: 0;
-        margin: 0;
+        margin: $share-this-vertical-offset - $share-this-arrow-size 0 0;
         white-space: nowrap;
         background: $share-this-background;
         color: $share-this-foreground;

@@ -16,6 +16,7 @@ export function stylePopover(popover, range, options) {
         style.left = `${scroll.left + endLineRect.left}px`;
     }
     style.width = `${endLineRect.right - endLineRect.left}px`;
+    style.height = `${endLineRect.bottom - endLineRect.top}px`;
     style.top = `${endLineRect.top}px`;
     style.position = "absolute";
 
