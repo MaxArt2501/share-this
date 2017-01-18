@@ -4,7 +4,7 @@ import { parse } from "url";
 import { expect } from "chai";
 import { env } from "jsdom";
 
-import * as facebookSharer from "../../dist/sharers/facebook";
+import * as facebookSharer from "../../src/sharers/facebook";
 
 describe("Facebook sharer", () => {
     it("must have name 'facebook'", () => {
