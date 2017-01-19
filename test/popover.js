@@ -1,8 +1,14 @@
 /* eslint-disable consistent-return, no-undef, no-unused-expressions */
-import { expect } from "chai";
+import chai, { expect } from "chai";
+import { spy } from "sinon";
+import sinonChai from "sinon-chai";
 import { env } from "jsdom";
 
 import * as popover from "../src/popover";
+
+chai.use(sinonChai);
+
+const fakeHTML = "<ul><li data-share-via=\"foo\">Hello, world!</li></ul>";
 
 describe("Popover methods", () => {
     describe("lifeCycleFactory", () => {
@@ -83,9 +89,56 @@ describe("Popover methods", () => {
             });
         });
     });
-});
 
-const fakeHTML = "<div>Hello, world!</div>";
+    describe("popoverClick", () => {
+        it("must call the sharer's `action` method", (done) => {
+            env(fakeHTML, (err, _window) => {
+                const sharer = {
+                    name: "foo",
+                    action: spy()
+                };
+                const target = _window.document.body.firstChild.firstChild;
+                const event = new _window.Event("click");
+                target.dispatchEvent(event);
+
+                popover.popoverClick([ sharer ], event);
+                expect(sharer.action).to.be.calledOnce;
+                done();
+            });
+        });
+        it("must get out soon if the sharer isn't found", (done) => {
+            env(fakeHTML, (err, _window) => {
+                const sharer = {
+                    name: "bar",
+                    action: spy()
+                };
+                const target = _window.document.body.firstChild.firstChild;
+                const event = new _window.Event("click");
+                target.dispatchEvent(event);
+
+                popover.popoverClick([ sharer ], event);
+                expect(sharer.action).to.not.be.called;
+                done();
+            });
+        });
+        it("must get out soon if the element isn't found", (done) => {
+            env(fakeHTML, (err, _window) => {
+                const sharer = {
+                    name: "foo",
+                    action: spy()
+                };
+                const target = _window.document.body.firstChild.firstChild;
+                target.removeAttribute("data-share-via");
+                const event = new _window.Event("click");
+                target.dispatchEvent(event);
+
+                popover.popoverClick([ sharer ], event);
+                expect(sharer.action).to.not.be.called;
+                done();
+            });
+        });
+    });
+});
 
 function initLifeCycle(callback) {
     env(fakeHTML, (err, _window) => {
