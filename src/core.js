@@ -6,7 +6,7 @@ import render from "./render";
 let _undefined;
 
 export default (opts) => {
-    const options = extend({
+    const options = (Object.assign || extend)({
         document,
         selector: "body",
         sharers: [],

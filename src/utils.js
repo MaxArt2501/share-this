@@ -15,8 +15,7 @@ export function findByName(array, name) {
     }
 }
 
-// eslint-disable-next-line func-names
-const extend = Object.assign || function(dest, source) {
+export function extend(dest, source) {
     if (source && typeof source === "object") {
         // eslint-disable-next-line guard-for-in
         for (const prop in source) {
@@ -27,4 +26,3 @@ const extend = Object.assign || function(dest, source) {
 
     return dest;
 };
-export { extend };

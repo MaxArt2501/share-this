@@ -28,4 +28,17 @@ describe("Package utilities", () => {
             expect(item).to.be.undefined;
         });
     });
+
+    describe("extend", () => {
+        it("must extend the source object", () => {
+            const source = {};
+            utils.extend(source, { foo: 42 });
+            expect(source.foo).to.equal(42);
+        });
+        it("must overwrite properties on the source object", () => {
+            const source = { foo: 5 };
+            utils.extend(source, { foo: 42 });
+            expect(source.foo).to.equal(42);
+        });
+    });
 });
