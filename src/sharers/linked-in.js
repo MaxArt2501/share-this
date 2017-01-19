@@ -28,11 +28,12 @@ export function getShareUrl(text, refUrl) {
 
 export function action(event, item) {
     event.preventDefault();
-    item.ownerDocument.defaultView.open(
+    const popup = item.ownerDocument.defaultView.open(
         item.firstChild.href,
         "share_via_linked_in",
         "height=440,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,width=640"
     );
+    popup.opener = null;
 }
 
 export const name = "linked-in";
