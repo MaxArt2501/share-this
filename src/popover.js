@@ -51,14 +51,3 @@ export function lifeCycleFactory(document) {
         }
     };
 }
-
-export function windowOpener(name) {
-    return (event, item) => {
-        event.preventDefault();
-        item.ownerDocument.defaultView.open(
-            item.firstChild.href,
-            `share_via_${name}`,
-            "height=440,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,width=640"
-        );
-    };
-}
