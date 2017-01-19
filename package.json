@@ -47,6 +47,8 @@
     "nyc": "^10.0.0",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-stream": "^1.16.0",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   }
