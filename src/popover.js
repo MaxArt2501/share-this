@@ -32,7 +32,7 @@ export function popoverClick(sharers, event) {
     const sharer = findByName(sharers, via);
     if (!sharer || typeof sharer.action !== "function") return;
 
-    sharer.action.call(event, item);
+    sharer.action(event, item);
 }
 
 export function lifeCycleFactory(document) {

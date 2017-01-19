@@ -26,10 +26,10 @@ export function getShareUrl(text, refUrl) {
     return `https://www.linkedin.com/shareArticle?mini=true&summary=${encodeURIComponent(text)}&url=${encodeURIComponent(refUrl)}`;
 }
 
-export function action(event) {
+export function action(event, item) {
     event.preventDefault();
-    this.ownerDocument.defaultView.open(
-        this.firstChild.href,
+    item.ownerDocument.defaultView.open(
+        item.firstChild.href,
         "share_via_linked_in",
         "height=440,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,width=640"
     );
