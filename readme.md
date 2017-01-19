@@ -183,6 +183,7 @@ Notes:
 ## To do
 
 * More tests (with headless browsers)
+* More test coverage
 * Fine-tune Babel
 * Contribution guide lines
 * Specific mobile support

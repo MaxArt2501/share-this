@@ -1,3 +1,9 @@
+# 1.0.4
+
+* Added coveralls.io integration
+* More tests
+* Minor fixes
+
 # 1.0.3
 
 * Switched from Browserify + Rollup to just Rollup
