@@ -24,6 +24,51 @@ describe("Core factory", () => {
             done();
         });
     });
+    describe("init", () => {
+        it("must return false if the environment doesn't support Selection API", (done) => {
+            init({}, (result) => {
+                global.document.defaultView.getSelection = null;
+                const isInitialized = result.init();
+                expect(isInitialized).to.be.false;
+                done();
+            });
+        });
+        it("must return true if the instance has been initialized correctly", (done) => {
+            init({}, (result) => {
+                global.document.defaultView.getSelection = function() {};
+                const isInitialized = result.init();
+                expect(isInitialized).to.be.true;
+                done();
+            });
+        });
+        it("must return false if it's been called more than once", (done) => {
+            init({}, (result) => {
+                global.document.defaultView.getSelection = function() {};
+                result.init();
+                let isInitialized = result.init();
+                expect(isInitialized).to.be.false;
+                done();
+            });
+        });
+    });
+    describe("destroy", () => {
+        it("must return false if the instance hasn't been initialized", (done) => {
+            init({}, (result) => {
+                let isSuccessful = result.destroy();
+                expect(isSuccessful).to.be.false;
+                done();
+            });
+        });
+        it("must return true if the instance has been initialized", (done) => {
+            init({}, (result) => {
+                global.document.defaultView.getSelection = function() {};
+                result.init();
+                let isSuccessful = result.destroy();
+                expect(isSuccessful).to.be.true;
+                done();
+            });
+        });
+    });
 });
 
 const fakeHTML = "<div>Hello, world!</div>";
