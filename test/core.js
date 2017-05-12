@@ -35,7 +35,7 @@ describe("Core factory", () => {
         });
         it("must return true if the instance has been initialized correctly", (done) => {
             init({}, (result) => {
-                global.document.defaultView.getSelection = function() {};
+                global.document.defaultView.getSelection = function getSelection() {};
                 const isInitialized = result.init();
                 expect(isInitialized).to.be.true;
                 done();
@@ -43,9 +43,9 @@ describe("Core factory", () => {
         });
         it("must return false if it's been called more than once", (done) => {
             init({}, (result) => {
-                global.document.defaultView.getSelection = function() {};
+                global.document.defaultView.getSelection = function getSelection() {};
                 result.init();
-                let isInitialized = result.init();
+                const isInitialized = result.init();
                 expect(isInitialized).to.be.false;
                 done();
             });
@@ -54,16 +54,16 @@ describe("Core factory", () => {
     describe("destroy", () => {
         it("must return false if the instance hasn't been initialized", (done) => {
             init({}, (result) => {
-                let isSuccessful = result.destroy();
+                const isSuccessful = result.destroy();
                 expect(isSuccessful).to.be.false;
                 done();
             });
         });
         it("must return true if the instance has been initialized", (done) => {
             init({}, (result) => {
-                global.document.defaultView.getSelection = function() {};
+                global.document.defaultView.getSelection = function getSelection() {};
                 result.init();
-                let isSuccessful = result.destroy();
+                const isSuccessful = result.destroy();
                 expect(isSuccessful).to.be.true;
                 done();
             });

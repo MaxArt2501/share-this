@@ -1,6 +1,5 @@
 /* eslint-disable consistent-return, no-undef, no-unused-expressions */
 import chai, { expect } from "chai";
-import { spy } from "sinon";
 import sinonChai from "sinon-chai";
 import { env } from "jsdom";
 
