@@ -17,7 +17,7 @@ export function stylePopover(popover, range, options) {
     }
     style.width = `${endLineRect.right - endLineRect.left}px`;
     style.height = `${endLineRect.bottom - endLineRect.top}px`;
-    style.top = `${endLineRect.top}px`;
+    style.top = `${scroll.top + endLineRect.top}px`;
     style.position = "absolute";
 
     // eslint-disable-next-line no-param-reassign
