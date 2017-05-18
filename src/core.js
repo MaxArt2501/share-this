@@ -55,7 +55,10 @@ export default (opts) => {
             removeListener("touchend", selectionCheck);
 
             killPopover();
-            _selection = _window = _document = null;
+
+            _selection = null;
+            _window = null;
+            _document = null;
 
             return destroyed = true;
         }

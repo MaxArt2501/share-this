@@ -1,12 +1,8 @@
 /* eslint-disable consistent-return, no-undef, no-unused-expressions */
-import chai, { expect } from "chai";
-import { spy } from "sinon";
-import sinonChai from "sinon-chai";
+import { expect } from "chai";
 import { env } from "jsdom";
 
 import * as selection from "../src/selection";
-
-chai.use(sinonChai);
 
 describe("Selection methods", () => {
     describe("isSelectionForward", () => {
