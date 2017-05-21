@@ -208,7 +208,6 @@ voice synthesis"), so you might want to show *both* native and custom sharing in
 * More tests (with headless browsers)
 * More test coverage
 * Fine-tune Babel
-* Contribution guide lines
 * Specific mobile support
 
 
