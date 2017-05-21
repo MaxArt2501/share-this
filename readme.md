@@ -180,6 +180,29 @@ Notes:
 1. Firefox below v52 works *mostly* just fine, but it fails to remove the popover when the selection is modified
    because it lacks support of the [`selectionchange` event](https://developer.mozilla.org/en-US/docs/Web/Events/selectionchange).
 
+
+## Mobile devices
+
+On mobile browsers, you might not want to have `share-this` to interfere with native sharing features, so you might want it disabled. In order
+to it, you might want to do something like this:
+
+```js
+if (!window.matchMedia
+        || !window.matchMedia("(pointer: coarse)").matches) {
+    selectionShare.init();
+}
+```
+
+(The rationale of this is that the device's primary pointer is "coarse" - that includes touch devices, but also Kinect and WiiMotes - then the
+device *probably* features a native sharing interface. See [CanIUse](http://caniuse.com/#feat=css-media-interaction) for details about Interaction
+Media Features. If the browser doesn't support `window.matchMedia` altogether, then it's *probably* a PC with a mouse/trackpad, so it's fine to
+initialize `share-this`.)
+
+Keep in mind that native sharing features let the *device* do the job, using apps or services installed on it, `share-this` keep this task on the
+page, which means it could offer "sharing" capabilities that the device may not have (e.g.: "save to my account's notes" or "pronounce this using
+voice synthesis"), so you might want to show *both* native and custom sharing interfaces.
+
+
 ## To do
 
 * More tests (with headless browsers)
@@ -187,6 +210,7 @@ Notes:
 * Fine-tune Babel
 * Contribution guide lines
 * Specific mobile support
+
 
 ## License
 
