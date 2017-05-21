@@ -1,3 +1,8 @@
+# 1.0.5
+
+* Fixed positioning on vertically scrolled pages
+* Updated documentation
+
 # 1.0.4
 
 * Added coveralls.io integration
