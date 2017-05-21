@@ -20,9 +20,9 @@
   "scripts": {
     "prepublish": "npm test",
     "preversion": "npm test",
-    "coverage": "node_modules/.bin/nyc report --reporter=text-lcov | node_modules/.bin/coveralls",
-    "test": "node_modules/.bin/nyc --require babel-core/register node_modules/.bin/mocha test/*.js test/sharers/*.js",
-    "testonly": "node_modules/.bin/mocha --compilers js:babel-register test/*.js test/sharers/*.js"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "test": "nyc --require babel-core/register mocha test/*.js test/sharers/*.js",
+    "testonly": "mocha --compilers js:babel-register test/*.js test/sharers/*.js"
   },
   "repository": {
     "type": "git",
