@@ -24,11 +24,12 @@ export function stylePopover(popover, range, options) {
     popover.className = options.popoverClass;
 }
 
+const dataAttribute = "data-share-via";
 export function popoverClick(sharers, event) {
-    const item = closest(event.target, "[data-share-via]");
+    const item = closest(event.target, `[${dataAttribute}]`);
     if (!item) return;
 
-    const via = item.getAttribute("data-share-via");
+    const via = item.getAttribute(dataAttribute);
     const sharer = findByName(sharers, via);
     if (!sharer || typeof sharer.action !== "function") return;
 
