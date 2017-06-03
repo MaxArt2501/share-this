@@ -38,9 +38,11 @@ export function popoverClick(sharers, event) {
 
 export function lifeCycleFactory(document) {
     return {
-        createPopover(sharers) {
+        createPopover() {
             const popover = document.createElement("div");
-            popover.addEventListener("click", popoverClick.bind(null, sharers));
+            popover.addEventListener("click", function(event) {
+                popoverClick(this.sharers, event);
+            });
             return popover;
         },
         attachPopover(popover) {

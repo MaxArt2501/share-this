@@ -99,7 +99,7 @@ export default (opts) => {
             if (!toBeOpened) killPopover();
             return;
         }
-        if (toBeOpened) popover = lifeCycle.createPopover(sharers);
+        if (toBeOpened) popover = lifeCycle.createPopover();
 
         popover.sharers = sharers;
         popover.innerHTML = render(options, sharers, text, rawText);
