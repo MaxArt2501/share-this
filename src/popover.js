@@ -1,13 +1,14 @@
 import { getPageScroll, closest } from "./dom";
-import { findByName } from "./utils";
+import { findByName, isCallable } from "./utils";
 import { isSelectionForward, getEndLineRect } from "./selection";
 
 export function stylePopover(popover, range, options) {
     const _document = options.document;
-    const selection = _document.defaultView.getSelection();
+    const _window = _document.defaultView;
+    const selection = _window.getSelection();
     const isForward = isSelectionForward(selection);
     const endLineRect = getEndLineRect(range, isForward);
-    const scroll = getPageScroll(_document);
+    const scroll = getPageScroll(_window);
 
     const style = popover.style;
     if (isForward) {
@@ -31,15 +32,16 @@ export function popoverClick(sharers, event) {
 
     const via = item.getAttribute(dataAttribute);
     const sharer = findByName(sharers, via);
-    if (!sharer || typeof sharer.action !== "function") return;
-
-    sharer.action(event, item);
+    if (sharer && isCallable(sharer.action)) {
+        sharer.action(event, item);
+    }
 }
 
 export function lifeCycleFactory(document) {
     return {
         createPopover() {
             const popover = document.createElement("div");
+            // eslint-disable-next-line func-names
             popover.addEventListener("click", function(event) {
                 popoverClick(this.sharers, event);
             });

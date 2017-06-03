@@ -1,9 +1,10 @@
 import { stylePopover, lifeCycleFactory } from "./popover";
 import { constrainRange } from "./selection";
-import { extend } from "./utils";
+import { extend, isCallable } from "./utils";
 import render from "./render";
 
 let _undefined;
+const eventTypes = [ "selectionchange", "mouseup", "touchend", "touchcancel" ];
 
 export default (opts) => {
     const options = (Object.assign || extend)({
@@ -19,7 +20,6 @@ export default (opts) => {
 
     let _getSelection = _undefined;
     let _document = _undefined;
-    let _selection = _undefined;
 
     let popover = _undefined;
     let lifeCycle = _undefined;
@@ -32,17 +32,12 @@ export default (opts) => {
             _getSelection = _document.defaultView.getSelection;
             if (!_getSelection) {
                 // eslint-disable-next-line no-console
-                console.error("Selection API isn't supported");
+                console.warn("share-this: Selection API isn't supported");
                 return false;
             }
 
-            const addListener = _document.addEventListener.bind(_document);
-            addListener("selectionchange", selectionCheck);
-            addListener("mouseup", selectionCheck);
-            addListener("touchend", selectionCheck);
-            addListener("touchcancel", selectionCheck);
+            eventTypes.forEach(addListener);
 
-            _selection = _getSelection();
             lifeCycle = lifeCycleFactory(_document);
 
             return initialized = true;
@@ -50,21 +45,19 @@ export default (opts) => {
         destroy() {
             if (!initialized || destroyed) return false;
 
-            const removeListener = _document.removeEventListener.bind(_document);
-            removeListener("selectionchange", selectionCheck);
-            removeListener("mouseup", selectionCheck);
-            removeListener("touchend", selectionCheck);
-            removeListener("touchcancel", selectionCheck);
+            eventTypes.forEach(removeListener);
 
             killPopover();
 
             _getSelection = _undefined;
             _document = _undefined;
-            _selection = _undefined;
 
             return destroyed = true;
         }
     };
+
+    function addListener(type) { _document.addEventListener(type, selectionCheck); }
+    function removeListener(type) { _document.removeEventListener(type, selectionCheck); }
 
     function selectionCheck({ type }) {
         const shouldHavePopover = type === "selectionchange";
@@ -79,7 +72,8 @@ export default (opts) => {
     }
 
     function getConstrainedRange() {
-        const range = _selection.rangeCount && _selection.getRangeAt(0);
+        const selection = _getSelection();
+        const range = selection.rangeCount && selection.getRangeAt(0);
         if (!range) return;
 
         const constrainedRange = constrainRange(range, options.selector);
@@ -96,7 +90,7 @@ export default (opts) => {
         const sharers = options.sharers.filter(sharerCheck.bind(null, text, rawText));
 
         if (!sharers.length) {
-            if (!toBeOpened) killPopover();
+            if (popover) killPopover();
             return;
         }
         if (toBeOpened) popover = lifeCycle.createPopover();
@@ -109,7 +103,7 @@ export default (opts) => {
 
         lifeCycle.attachPopover(popover);
 
-        if (typeof options.onOpen === "function") {
+        if (isCallable(options.onOpen)) {
             options.onOpen(popover, text, rawText);
         }
     }
@@ -118,14 +112,14 @@ export default (opts) => {
         if (!popover) return;
 
         lifeCycle.removePopover(popover);
-        popover = null;
-        if (typeof options.onClose === "function") {
+        popover = _undefined;
+        if (isCallable(options.onClose)) {
             options.onClose();
         }
     }
 
     function sharerCheck(text, rawText, sharer) {
-        if (typeof sharer.active === "function") {
+        if (isCallable(sharer.active)) {
             return sharer.active(text, rawText);
         }
 

@@ -26,3 +26,7 @@ export function extend(dest, source) {
 
     return dest;
 }
+
+export function isCallable(func) {
+    return typeof func === "function";
+}

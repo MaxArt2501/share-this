@@ -1,7 +1,8 @@
-export function getPageScroll(_document) {
-    const left = _document.documentElement.scrollLeft + _document.body.scrollLeft;
-    const top = _document.documentElement.scrollTop + _document.body.scrollTop;
-    return { left, top };
+export function getPageScroll(_window) {
+    return {
+        left: _window.pageXOffset,
+        top: _window.pageYOffset
+    };
 }
 
 let matchFunc;
@@ -29,6 +30,6 @@ export function contains(ancestor, target) {
 // eslint-disable-next-line consistent-return
 function getMatchFunctionName(element) {
     for (const name of [ "matches", "matchesSelector", "webkitMatchesSelector", "mozMatchesSelector", "msMatchesSelector", "oMatchesSelector" ]) {
-        if (typeof element[name] === "function") return name;
+        if (element[name]) return name;
     }
 }
