@@ -41,4 +41,18 @@ describe("Package utilities", () => {
             expect(source.foo).to.equal(42);
         });
     });
+
+    describe("isCallable", () => {
+        it("must return `true` is a function is passed", () => {
+            expect(utils.isCallable(() => {})).to.be.true;
+        });
+        it("must return `false` otherwise", () => {
+            expect(utils.isCallable()).to.be.false;
+            expect(utils.isCallable(true)).to.be.false;
+            expect(utils.isCallable("foo")).to.be.false;
+            expect(utils.isCallable(42)).to.be.false;
+            expect(utils.isCallable([])).to.be.false;
+            expect(utils.isCallable({})).to.be.false;
+        });
+    });
 });
