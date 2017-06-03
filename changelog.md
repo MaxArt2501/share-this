@@ -1,3 +1,8 @@
+# 1.1.0
+
+* Added support to selection changes
+* Added specific support for mobile devices
+
 # 1.0.5
 
 * Fixed positioning on vertically scrolled pages
