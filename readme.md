@@ -73,7 +73,9 @@ These are the options for the factory:
 * `selector`: restricts the shared text to the contents of the elements matching `selector` (default: `"body"`);
 * `sharers`: an array of sharing channels (Twitter, Facebook, email...); see later for details;
 * `shareUrl`: a reference URL for the shared text (default: the `location` object of the `document` property);
-* `transformer`: a function that transforms the extracted selected text (default: a function that trims and collapses whitespaces).
+* `transformer`: a function that transforms the extracted selected text (default: a function that trims and collapses whitespaces);
+* `onOpen`: a function that gets called when the sharing popover is opened. The popover's element, the transformed selected text and its original version are passed as arguments;
+* `onClose`: a function that gets called when the sharing popover is closed.
 
 When you're done sharing text, you can call the `destroy` method;
 
@@ -144,6 +146,9 @@ const selectionShare = shareThis({
 
 Note: the `sharers` array should *not* be empty, or nothing will ever happen.
 
+The list of the sharers is also available on the `sharers` property on the popover element (e.g. passed to the `onOpen` callback), for dynamic
+runtime handling.
+
 The following are the default basic sharers provided by the package:
 
 Site     | File location               | Name        | Global variable
@@ -177,8 +182,7 @@ Source files for style sheets are also provided in both [LESS](style/less) and [
 
 Notes:
 
-1. Firefox below v52 works *mostly* just fine, but it fails to remove the popover when the selection is modified
-   because it lacks support of the [`selectionchange` event](https://developer.mozilla.org/en-US/docs/Web/Events/selectionchange).
+1. Firefox below v52 lacks support of the [`selectionchange` event](https://developer.mozilla.org/en-US/docs/Web/Events/selectionchange).
 
 
 ## Mobile devices
@@ -208,7 +212,7 @@ voice synthesis"), so you might want to show *both* native and custom sharing in
 * More tests (with headless browsers)
 * More test coverage
 * Fine-tune Babel
-* Specific mobile support
+* Support for JSX in sharers' `render` method
 
 
 ## License
