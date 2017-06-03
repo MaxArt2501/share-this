@@ -17,7 +17,7 @@ export default (opts) => {
     let initialized = false;
     let destroyed = false;
 
-    let _window = _undefined;
+    let _getSelection = _undefined;
     let _document = _undefined;
     let _selection = _undefined;
 
@@ -29,19 +29,20 @@ export default (opts) => {
             if (initialized) return false;
 
             _document = options.document;
-            _window = _document.defaultView;
-            if (!_window.getSelection) {
+            _getSelection = _document.defaultView.getSelection;
+            if (!_getSelection) {
                 // eslint-disable-next-line no-console
                 console.error("Selection API isn't supported");
                 return false;
             }
 
             const addListener = _document.addEventListener.bind(_document);
-            addListener("selectionchange", killPopover);
+            addListener("selectionchange", selectionCheck);
             addListener("mouseup", selectionCheck);
             addListener("touchend", selectionCheck);
+            addListener("touchcancel", selectionCheck);
 
-            _selection = _window.getSelection();
+            _selection = _getSelection();
             lifeCycle = lifeCycleFactory(_document);
 
             return initialized = true;
@@ -50,48 +51,59 @@ export default (opts) => {
             if (!initialized || destroyed) return false;
 
             const removeListener = _document.removeEventListener.bind(_document);
-            removeListener("selectionchange", killPopover);
+            removeListener("selectionchange", selectionCheck);
             removeListener("mouseup", selectionCheck);
             removeListener("touchend", selectionCheck);
+            removeListener("touchcancel", selectionCheck);
 
             killPopover();
 
-            _selection = _undefined;
-            _window = _undefined;
+            _getSelection = _undefined;
             _document = _undefined;
+            _selection = _undefined;
 
             return destroyed = true;
         }
     };
 
-    function selectionCheck() {
-        const range = _selection.rangeCount && _selection.getRangeAt(0);
-        if (!range) {
-            killPopover();
-            return;
+    function selectionCheck({ type }) {
+        const shouldHavePopover = type === "selectionchange";
+        if (!popover !== shouldHavePopover) {
+            const range = getConstrainedRange();
+            if (range) drawPopover(range);
+            else killPopover();
         }
+    }
+
+    function getConstrainedRange() {
+        const range = _selection.rangeCount && _selection.getRangeAt(0);
+        if (!range) return;
 
         const constrainedRange = constrainRange(range, options.selector);
-        if (constrainedRange.collapsed) {
-            killPopover();
-            return;
-        }
+        if (constrainedRange.collapsed) return;
 
-        drawPopover(constrainedRange);
+        // eslint-disable-next-line consistent-return
+        return constrainedRange;
     }
 
     function drawPopover(range) {
-        if (popover) return;
-
+        const toBeOpened = !popover;
         const rawText = range.toString();
         const text = options.transformer(rawText);
-
         const sharers = options.sharers.filter(sharerCheck.bind(null, text, rawText));
-        if (!sharers.length) return;
 
-        popover = lifeCycle.createPopover(sharers);
+        if (!sharers.length) {
+            if (!toBeOpened) killPopover();
+            return;
+        }
+        if (toBeOpened) popover = lifeCycle.createPopover(sharers);
+
+        popover.sharers = sharers;
         popover.innerHTML = render(options, sharers, text, rawText);
         stylePopover(popover, range, options);
+
+        if (!toBeOpened) return;
+
         lifeCycle.attachPopover(popover);
 
         if (typeof options.onOpen === "function") {
