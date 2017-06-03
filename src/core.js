@@ -69,9 +69,12 @@ export default (opts) => {
     function selectionCheck({ type }) {
         const shouldHavePopover = type === "selectionchange";
         if (!popover !== shouldHavePopover) {
-            const range = getConstrainedRange();
-            if (range) drawPopover(range);
-            else killPopover();
+            // Safari iOS fires selectionchange *before* click, so tapping on a sharer would be prevented
+            setTimeout(() => {
+                const range = getConstrainedRange();
+                if (range) drawPopover(range);
+                else killPopover();
+            }, 10);
         }
     }
 
