@@ -21,8 +21,9 @@ In order to make a contribution to this project, you're kindly invited to respec
   * as jsdom doesn't support some APIs, tests that involve those may wait until I figure out alternative testing approaches;
   * you may also suggest such approaches.
 * This package is meant to not have any dependencies.
+* Comments should explain *why*, not *what*.
 * Other kinds of dependencies (dev, peer, etc.) can be taken into consideration.
-* This package has a *unopinionated*: this means that you shouldn't take decision that developers can easily take to adapt
-  the package to their needs.
+* This package has a *unopinionated* nature: this means that you shouldn't take decision that developers can easily take to
+  adapt the package to their needs.
 
-Thank you and nice coding!
+Thank you and happy coding!
