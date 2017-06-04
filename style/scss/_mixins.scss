@@ -11,3 +11,18 @@
     -webkit-filter: $filter;
             filter: $filter;
 }
+
+@mixin share-this-on-bottom() {
+    &::before {
+        bottom: auto;
+        top: 100%;
+        border-width: 0 $share-this-arrow-size $share-this-arrow-size;
+        margin-top: 0;
+    }
+
+    > ul {
+        top: 100%;
+        transform: translateX(-50%);
+        margin: $share-this-arrow-size 0 0;
+    }
+}

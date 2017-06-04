@@ -55,31 +55,24 @@
         }
     }
 
+    @media (pointer: coarse) {
+        font-size: 150%;
+        .share-this-on-bottom();
+    }
     @media (max-width: @share-this-small-devices-max) {
         left: 0 !important;
         right: 0 !important;
         width: auto !important;
         max-width: none;
-
-        &::before {
-            bottom: auto;
-            top: 100%;
-            border-width: 0 @share-this-arrow-size @share-this-arrow-size;
-            margin-top: 0;
-        }
+        .share-this-on-bottom();
 
         > ul {
             left: 0;
-            top: 100%;
             width: 100%;
             transform: none;
-            margin: @share-this-arrow-size 0 0;
             border-radius: 0;
             text-align: center;
         }
-    }
-    @media (pointer: coarse) {
-        font-size: 150%;
     }
 }
 
