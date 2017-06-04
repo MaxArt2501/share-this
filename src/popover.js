@@ -41,7 +41,6 @@ export function lifeCycleFactory(document) {
     return {
         createPopover() {
             const popover = document.createElement("div");
-            // eslint-disable-next-line func-names
             popover.addEventListener("click", function(event) {
                 popoverClick(this.sharers, event);
             });

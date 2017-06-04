@@ -18,6 +18,7 @@
         "curly": [ "error", "multi-line" ],
         "eol-last": "error",
         "key-spacing": [ "error", { "beforeColon": false, "afterColon": true } ],
+        "func-names": "off",
         "import/no-extraneous-dependencies": [ "error", {
             "devDependencies": true,
             "optionalDependencies": false,
