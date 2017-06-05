@@ -18,8 +18,8 @@ export default (opts) => {
     let initialized = false;
     let destroyed = false;
 
-    let _getSelection = _undefined;
     let _document = _undefined;
+    let _window = _undefined;
 
     let popover = _undefined;
     let lifeCycle = _undefined;
@@ -29,14 +29,15 @@ export default (opts) => {
             if (initialized) return false;
 
             _document = options.document;
-            _getSelection = _document.defaultView.getSelection;
-            if (!_getSelection) {
+            _window = _document.defaultView;
+            if (!_window.getSelection) {
                 // eslint-disable-next-line no-console
                 console.warn("share-this: Selection API isn't supported");
                 return false;
             }
 
             eventTypes.forEach(addListener);
+            _window.addEventListener("resize", resizeHandler);
 
             lifeCycle = lifeCycleFactory(_document);
 
@@ -46,11 +47,12 @@ export default (opts) => {
             if (!initialized || destroyed) return false;
 
             eventTypes.forEach(removeListener);
+            _window.removeEventListener("resize", resizeHandler);
 
             killPopover();
 
-            _getSelection = _undefined;
             _document = _undefined;
+            _window = _undefined;
 
             return destroyed = true;
         }
@@ -58,6 +60,11 @@ export default (opts) => {
 
     function addListener(type) { _document.addEventListener(type, selectionCheck); }
     function removeListener(type) { _document.removeEventListener(type, selectionCheck); }
+    function resizeHandler() {
+        if (popover) {
+            stylePopover(popover, getConstrainedRange(), options);
+        }
+    }
 
     function selectionCheck({ type }) {
         const shouldHavePopover = type === "selectionchange";
@@ -72,7 +79,7 @@ export default (opts) => {
     }
 
     function getConstrainedRange() {
-        const selection = _getSelection();
+        const selection = _window.getSelection();
         const range = selection.rangeCount && selection.getRangeAt(0);
         if (!range) return;
 
@@ -119,12 +126,13 @@ export default (opts) => {
     }
 
     function sharerCheck(text, rawText, sharer) {
-        if (isCallable(sharer.active)) {
-            return sharer.active(text, rawText);
+        const active = sharer.active;
+        if (isCallable(active)) {
+            return active(text, rawText);
         }
 
-        if (sharer.active !== _undefined) {
-            return sharer.active;
+        if (active !== _undefined) {
+            return active;
         }
 
         return true;
