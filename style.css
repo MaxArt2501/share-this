@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #333;
+}
+pre,
+code {
+    font-family: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", "Source Code Pro", monospace;
+}
+a {
+    color: inherit;
+}
+
+header,
+footer {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+article,
+section {
+    max-width: 700px;
+    margin: 0 auto;
+}
+article > header {
+    max-width: 700px;
+    padding: 35px 0 10px;
+    display: flex;
+    align-items: center;
+}
+article blockquote,
+article ul,
+article ol,
+article p {
+    font-size: 21px;
+    margin-top: 10px;
+    font-family: "Apple Garamond", "Baskerville", "Georgia", "Times New Roman", "Roboto Slab", "Droid Serif", "Times", "Source Serif Pro", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.58;
+    letter-spacing: -.003em;
+}
+
+header {
+    height: 64px;
+    border-bottom: 1px solid transparent;
+    display: flex;
+    align-items: center;
+}
+header svg {
+    height: 32px;
+}
+
+.avatar {
+    height: 60px;
+    border-radius: 50%;
+}
+.author-info {
+    margin-left: 15px;
+}
+.author-info > a {
+    text-decoration: none;
+}
+.author-info > iframe {
+    vertical-align: middle;
+}
+.author-meta {
+    color: #8f8f8f;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-top: 2px;
+}
+
+h1 {
+    font-size: 40px;
+    margin: 39px 0 0;
+}
+
+.share-this-popover {
+    font-size: 20px;
+}
