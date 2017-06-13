@@ -41,25 +41,95 @@
                 here? Try to select some text.
             </p>
             <p>
-                It is! All thanks to <a href="https://github.com/MaxArt2501/share-this">share-this</a>, a package I've
+                It is! All thanks to <a href="https://github.com/MaxArt2501/share-this"><em>share-this</em></a>, a package I've
                 developed with the following principles in mind:
             </p>
             <ul>
                 <li>no dependencies - no jQuery, no icon sets, nothing;</li>
                 <li>as much unopinionated as possible, which means:</li>
-                <li>it's highly customizable</li>
+                <li>it's highly customizable;</li>
+                <li>it has a very minimal DOM skeleton;</li>
+                <li>its functionality is <em>not</em> predetermined.</li>
             </ul>
+            <p>I think the first part is quite clear, so let's see the others in detail.</p>
+
+            <h2>Highly customizable</h2>
+            <p>
+                Being &ldquo;customizable&rdquo; for <em>share-this</em> is something that involves both its general
+                appearance and the sharing channels it provides.
+            </p>
+            <p>
+                Altough <em>share-this</em> does come with a curated style sheet that's ready to use and probably fits
+                most of a developer's needs, it's <em>not</em> considered a vital part of the library. This means it could
+                be completely replaced by something else. It makes use of just a CSS class (<code>share-this-popover</code>,
+                but that can be set with the <code>popoverClass</code> setting) that serves as a "namespace" for the style
+                rules. No IDs, no attributes, it's all styled on top of the simple popover's DOM structure.
+            </p>
+            <p>
+                There's also a breakpoint set to a viewport width of less than 576 pixels for a special styling for smaller
+                devices like smartphones in portrait mode. It's the same breakpoint of
+                <a href="https://v4-alpha.getbootstrap.com/layout/overview/#responsive-breakpoints">Bootstrap v4 for
+                    extra-small devices</a>.
+            </p>
+            <p>
+                And if you like the stylesheet provided but you want to tweak some values, you're lucky! Because the library
+                provides the sources for the style sheet in both LESS and SCSS format. No magic numbers, you can just
+                override the values in the <code>vars</code> file.
+            </p>
+            <p>
+                And what about the sharing channels, usually called &ldquo;sharers&rdquo; throughout the documentation? The
+                great news is that you can include the ones that you need, and <em>create</em> your custom sharer! You can
+                even enable and disable them at runtime with the <code>active</code> property (being a boolean or a function
+                returning a boolean). Finally, you can decide what should happen when clicking/tapping on the buttons with the
+                <code>action</code> callback, completely overriding any original behavior.
+            </p>
+            
+            <h2>Minimal DOM skeleton</h2>
+            <p>
+                This should be pretty straightforward, but this is the complete structure that <em>share-this</em> creates for
+                its popovers:
+            </p>
+            <pre><code>&lt;div class="share-this-popover" style="position: absolute; ...">
+    &lt;ul>
+        &lt;li data-share-via="...">...&lt;/li>
+        ...
+    &lt;/ul>
+&lt;/div></code></pre>
+            <p>
+                That's it. Just a <code>div</code> wrapper containing an unordered list (of supposedly sharer buttons), whose
+                items have a <code>data-share-via</code> attribute with the sharer's name as the value. What's inside the
+                <code>li</code> elements is up to the <code>render</code> method of each single sharer (altough the default
+                style sheet presumes it's wrapped in an anchor element). The wrapper (which is <em>not</em> the popover itself,
+                but rather a place marker for the selected text) is styled dynamically to set its position in the document.
+            </p>
+            <p>
+                (If you're asking if there are plans to support JSX for the <code>render</code> method, yes, there are.)
+            </p>
+
+            <h2>Undetermined behavior</h2>
+            <p>
+                Everyone expects <em>share-this</em> to just offer text sharing capabilities, as the name implies and actually
+                as it <em>does</em> when providing some example sharers. But it's not all the story, here: what a
+                &ldquo;sharer&rdquo; can do is actually up to the developer.
+            </p>
+            <p>
+                In fact, in this very page the popover provides a
+                couple of &ldquo;sharers&rdquo; that actually doen't anything like <em>sharing</em> the selected text. The
+                first one allows you to take notes on the article that are saved in the <code>localStorage</code> (they're not
+                sent anywhere, and other readers won't see them, don't worry). The other one is something that triggers the
+                speech synthesis API to pronounce the selected text (I guess more for fun than for actually learning).
+            </p>
         </article>
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <script src="dist/share-this.js"></script>
         <script src="dist/sharers/twitter.js"></script>
-        <script src="dist/sharers/facebook.js"></script>
-        <script src="dist/sharers/linked-in.js"></script>
+        <script src="dist/sharers/hn.js"></script>
         <script src="dist/sharers/reddit.js"></script>
         <script src="dist/sharers/email.js"></script>
+        <script src="dist/sharers/speakers.js"></script>
         <script>
         ShareThis({
-            sharers: [ ShareThisViaTwitter, ShareThisViaFacebook, ShareThisViaLinkedIn, ShareThisViaReddit, ShareThisViaEmail ],
+            sharers: [ ShareThisViaTwitter, ShareThisViaHackerNews, ShareThisViaReddit, ShareThisViaEmail, ShareThisViaSpeakers ],
             selector: "article"
         }).init();
         </script>
