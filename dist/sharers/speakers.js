@@ -1,10 +1,21 @@
 var ShareThisViaSpeakers  = (function() {
+    var langs = [ "en-US", "en_US", "en-GB", "en_GB", "en" ];
+    function findVoice() {
+        // Filtering english voices and sorting by the given order
+        var localVoices = synth.getVoices().filter(function(voice) {
+            return langs.indexOf(voice.lang) >= 0;
+        }).sort(function(v1, v2) {
+            return langs.indexOf(v1.lang) - langs.indexOf(v2.lang);
+        });
+        return localVoices[0];
+    }
+
     var synth = window.speechSynthesis;
     return {
         name: "speakers",
         render: function(text, rawText, refUrl) {
             this.text = text;
-            return "<a title=\"Share through your speakers!\">"
+            return "<a title=\"Share through your speakers!\" href=\"#\">"
                 + "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 75 75\">"
                     + "<g stroke=\"currentColor\" stroke-width=\"5\">"
                         + "<path stroke-linejoin=\"round\" fill=\"currentColor\" d=\"M39.39 13.77L22.234 28.605H6V47.7h15.99l17.4 15.05V13.77z\"/>"
@@ -15,7 +26,10 @@ var ShareThisViaSpeakers  = (function() {
         action: function(event) {
             event.preventDefault();
             if (this.text) {
-                synth.speak(new SpeechSynthesisUtterance(this.text));
+                var utterance = new SpeechSynthesisUtterance(this.text);
+                var voice = findVoice();
+                if (voice) utterance.voice = voice;
+                synth.speak(utterance);
             }
         }
     };
