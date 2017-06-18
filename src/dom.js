@@ -1,8 +1,8 @@
-export function getPageScroll(_window) {
-    return {
-        left: _window.pageXOffset,
-        top: _window.pageYOffset
-    };
+export function getOffsetScroll(_window) {
+    const body = _window.document.body;
+    const scrollReference = _window.getComputedStyle(body).position === "static"
+            ? body.parentNode : body;
+    return scrollReference.getBoundingClientRect();
 }
 
 let matchFunc;
