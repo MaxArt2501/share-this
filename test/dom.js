@@ -5,21 +5,32 @@ import { env } from "jsdom";
 import * as dom from "../src/dom";
 
 const fakeWindow = {
-    pageXOffset: 50,
-    pageYOffset: 100
+    getComputedStyle() {
+        return { position: "relative" }
+    },
+    document: {
+        body: {
+            getBoundingClientRect() {
+                return {
+                    top: -100,
+                    left: -50
+                };
+            }
+        }
+    }
 };
 
 describe("DOM utilities", () => {
-    describe("getPageScroll", () => {
+    describe("getOffsetScroll", () => {
         it("must return an object with `left` and `top` numeric properties", () => {
-            const scroll = dom.getPageScroll(fakeWindow);
+            const scroll = dom.getOffsetScroll(fakeWindow);
             expect(scroll).to.be.an("object");
             expect(scroll.left).to.be.a("number");
             expect(scroll.top).to.be.a("number");
         });
         it("must return the normalized top and left scroll of the page", () => {
-            const scroll = dom.getPageScroll(fakeWindow);
-            expect(scroll).to.eql({ top: 100, left: 50 });
+            const scroll = dom.getOffsetScroll(fakeWindow);
+            expect(scroll).to.include({ top: -100, left: -50 });
         });
     });
 
