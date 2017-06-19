@@ -13,10 +13,10 @@ export function isSelectionForward(selection) {
     return (comparedPositions & 4 /* === Node.DOCUMENT_POSITION_FOLLOWING */) > 0;
 }
 
-const slice = Array.prototype.slice;
 export function getEndLineRect(range, isForward) {
     let endLineRects;
     const rangeRects = range.getClientRects();
+    const sliceRects = [].slice.bind(rangeRects);
 
     if (isForward) {
         let lastLeft = Infinity;
@@ -26,7 +26,7 @@ export function getEndLineRect(range, isForward) {
             if (rect.left > lastLeft) break;
             lastLeft = rect.left;
         }
-        endLineRects = slice.call(rangeRects, i + 1);
+        endLineRects = sliceRects(i + 1);
     } else {
         let lastRight = -Infinity;
         let i = 0;
@@ -35,7 +35,7 @@ export function getEndLineRect(range, isForward) {
             if (rect.right < lastRight) break;
             lastRight = rect.right;
         }
-        endLineRects = slice.call(rangeRects, 0, i);
+        endLineRects = sliceRects(0, i);
     }
 
     return {

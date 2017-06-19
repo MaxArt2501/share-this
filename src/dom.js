@@ -29,7 +29,8 @@ export function contains(ancestor, target) {
 
 // eslint-disable-next-line consistent-return
 function getMatchFunctionName(element) {
-    for (const name of [ "matches", "matchesSelector", "webkitMatchesSelector", "mozMatchesSelector", "msMatchesSelector", "oMatchesSelector" ]) {
+    const suffix = "atchesSelector";
+    for (const name of [ "matches", `m${suffix}`, `webkitM${suffix}`, `mozM${suffix}`, `msM${suffix}`, `oM${suffix}` ]) {
         if (element[name]) return name;
     }
 }
