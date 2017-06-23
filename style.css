@@ -85,3 +85,47 @@ header svg {
 .share-this-popover {
     font-size: 20px;
 }
+
+.note-reference {
+    display: none;
+}
+.note-reference > span {
+    position: absolute;
+    background: rgba(196, 196, 255, 0.35);
+}
+.note-box {
+    position: absolute;
+    left: calc(50% + 350px + 3em);
+    width: 10em;
+    padding: 1em;
+    background: ivory;
+    border: 1px solid wheat;
+    border-radius: .2em;
+    box-shadow: 0 .1em .2em rgba(0, 0, 0, .35);
+}
+.note-toolbar {
+    background: rgba(0, 0, 0, .05);
+    margin: 0em -1em -1em;
+    text-align: right;
+    opacity: 0;
+    line-height: 1;
+}
+.note-toolbar > button {
+    background: transparent;
+    color: gray;
+    border: none;
+    box-shadow: none;
+    padding: 0 .25em;
+    line-height: 1;
+    font-size: 100%;
+    cursor: pointer;
+}
+.note-toolbar > button:hover {
+    background: rgba(0, 0, 0, .05);
+}
+.note-wrapper:hover .note-toolbar {
+    opacity: 1;
+}
+.note-wrapper:hover > .note-reference {
+    display: block;
+}
