@@ -36,25 +36,25 @@
                 Ever read an article on Medium, and tried to select some text for copy/pasting purposes? I bet you did.
                 So you also noticed the little balloon that appears on top of your selection, allowing you to do some nice
                 things like highlighting that snippet in a collaborative effort to give it more prominence, or commenting
-                on it or share it on Twitter. I think it's a pretty cool feature.
+                on it or share it on Twitter. I think it&rsquo;s a pretty cool feature.
             </p>
             <p>
-                Now, you may have noticed this is <em>not</em> an article on Medium. We're, in fact, on GitHub pages. It
-                <em>looks</em> like Medium, but it's because I'm joking with the styles. So, is that functionality still
+                Now, you may have noticed this is <em>not</em> an article on Medium. We&rsquo;re, in fact, on GitHub pages. It
+                <em>looks</em> like Medium, but it&rsquo;s because I&rsquo;m joking with the styles. So, is that functionality still
                 here? Try to select some text.
             </p>
             <p>
-                It is! All thanks to <a href="https://github.com/MaxArt2501/share-this"><em>share-this</em></a>, a package I've
+                It is! All thanks to <a href="https://github.com/MaxArt2501/share-this"><em>share-this</em></a>, a package I&rsquo;ve
                 developed with the following principles in mind:
             </p>
             <ul>
                 <li>no dependencies - no jQuery, no icon sets, nothing;</li>
                 <li>as much unopinionated as possible, which means:</li>
-                <li>it's highly customizable;</li>
+                <li>it&rsquo;s highly customizable;</li>
                 <li>it has a very minimal DOM skeleton;</li>
                 <li>its functionality is <em>not</em> predetermined.</li>
             </ul>
-            <p>I think the first part is quite clear, so let's see the others in detail.</p>
+            <p>I think the first part is quite clear, so let&rsquo;s see the others in detail.</p>
 
             <h2>Highly customizable</h2>
             <p>
@@ -62,20 +62,20 @@
                 appearance and the sharing channels it provides.
             </p>
             <p>
-                Altough <em>share-this</em> does come with a curated style sheet that's ready to use and probably fits
-                most of a developer's needs, it's <em>not</em> considered a vital part of the library. This means it could
+                Altough <em>share-this</em> does come with a curated style sheet that&rsquo;s ready to use and probably fits
+                most of a developer&rsquo;s needs, it&rsquo;s <em>not</em> considered a vital part of the library. This means it could
                 be completely replaced by something else. It makes use of just a CSS class (<code>share-this-popover</code>,
-                but that can be set with the <code>popoverClass</code> setting) that serves as a "namespace" for the style
-                rules. No IDs, no attributes, it's all styled on top of the simple popover's DOM structure.
+                but that can be set with the <code>popoverClass</code> setting) that serves as a &ldquo;namespace&rdquo; for the style
+                rules. No IDs, no attributes, it&rsquo;s all styled on top of the simple popover&rsquo;s DOM structure.
             </p>
             <p>
-                There's also a breakpoint set to a viewport width of less than 576 pixels for a special styling for smaller
-                devices like smartphones in portrait mode. It's the same breakpoint of
+                There&rsquo;s also a breakpoint set to a viewport width of less than 576 pixels for a special styling for smaller
+                devices like smartphones in portrait mode. It&rsquo;s the same breakpoint of
                 <a href="https://v4-alpha.getbootstrap.com/layout/overview/#responsive-breakpoints">Bootstrap v4 for
                     extra-small devices</a>.
             </p>
             <p>
-                And if you like the stylesheet provided but you want to tweak some values, you're lucky! Because the library
+                And if you like the stylesheet provided but you want to tweak some values, you&rsquo;re lucky! Because the library
                 provides the sources for the style sheet in both LESS and SCSS format. No magic numbers, you can just
                 override the values in the <code>vars</code> file.
             </p>
@@ -99,27 +99,27 @@
     &lt;/ul>
 &lt;/div></code></pre>
             <p>
-                That's it. Just a <code>div</code> wrapper containing an unordered list (of supposedly sharer buttons), whose
-                items have a <code>data-share-via</code> attribute with the sharer's name as the value. What's inside the
+                That&rsquo;s it. Just a <code>div</code> wrapper containing an unordered list (of supposedly sharer buttons), whose
+                items have a <code>data-share-via</code> attribute with the sharer&rsquo;s name as the value. What&rsquo;s inside the
                 <code>li</code> elements is up to the <code>render</code> method of each single sharer (altough the default
-                style sheet presumes it's wrapped in an anchor element). The wrapper (which is <em>not</em> the popover itself,
+                style sheet presumes it&rsquo;s wrapped in an anchor element). The wrapper (which is <em>not</em> the popover itself,
                 but rather a place marker for the selected text) is styled dynamically to set its position in the document.
             </p>
             <p>
-                (If you're asking if there are plans to support JSX for the <code>render</code> method, yes, there are.)
+                (If you&rsquo;re asking if there are plans to support JSX for the <code>render</code> method, yes, there are.)
             </p>
 
             <h2>Undetermined behavior</h2>
             <p>
                 Everyone expects <em>share-this</em> to just offer text sharing capabilities, as the name implies and actually
-                as it <em>does</em> when providing some example sharers. But it's not all the story, here: what a
+                as it <em>does</em> when providing some example sharers. But it&rsquo;s not all the story, here: what a
                 &ldquo;sharer&rdquo; can do is actually up to the developer.
             </p>
             <p>
                 In fact, in this very page the popover provides a
-                couple of &ldquo;sharers&rdquo; that don't do anything like <em>sharing</em> the selected text. The
-                first one allows you to take notes on the article that are saved in the <code>localStorage</code> (they're not
-                sent anywhere, and other readers won't see them, don't worry). The other one is something that triggers the
+                couple of &ldquo;sharers&rdquo; that don&rsquo;t do anything like <em>sharing</em> the selected text. The
+                first one allows you to take notes on the article that are saved in the <code>localStorage</code> (they&rsquo;re not
+                sent anywhere, and other readers won&rsquo;t see them, don&rsquo;t worry). The other one is something that triggers the
                 speech synthesis API to pronounce the selected text (I guess more for fun than for actually learning).
             </p>
         </article>
