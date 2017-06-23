@@ -22,18 +22,20 @@ h2 {
 }
 
 code {
-    font-size: 75%;
+    font-size: 95%;
 }
 
 header,
 footer {
     max-width: 1000px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 article,
 section {
     max-width: 700px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 article > header {
     max-width: 700px;
@@ -95,13 +97,15 @@ header svg {
 }
 .note-box {
     position: absolute;
-    left: calc(50% + 350px + 3em);
-    width: 10em;
+    left: calc(51% + 350px);
+    width: calc(49% - 350px);
+    max-width: 10em;
     padding: 1em;
     background: ivory;
     border: 1px solid wheat;
     border-radius: .2em;
     box-shadow: 0 .1em .2em rgba(0, 0, 0, .35);
+    box-sizing: border-box;
 }
 .note-toolbar {
     background: rgba(0, 0, 0, .05);
@@ -123,9 +127,39 @@ header svg {
 .note-toolbar > button:hover {
     background: rgba(0, 0, 0, .05);
 }
+.note-wrapper.is-selected .note-toolbar,
 .note-wrapper:hover .note-toolbar {
     opacity: 1;
 }
+.note-wrapper.is-selected > .note-reference,
 .note-wrapper:hover > .note-reference {
     display: block;
+}
+
+@media (max-width: 767px) {
+    h1 {
+        font-size: 32px;
+        margin: 31px 0 0;
+    }
+    h2 {
+        font-size: 28px;
+        margin: 28px 0 0;
+    }
+    article blockquote,
+    article ul,
+    article ol,
+    article p {
+        font-size: 18px;
+    }
+
+    .note-box {
+        left: calc(100% - 16px);
+        width: 10em;
+        max-width: none;
+        font-size: 14px;
+        transition: transform .3s;
+    }
+    .note-wrapper.is-selected > .note-box {
+        transform: translate(calc(16px - 100%), -100%);
+    }
 }

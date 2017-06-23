@@ -97,6 +97,7 @@ var ShareThisViaNotes  = (function() {
         comment.contentEditable = true;
         comment.focus();
         setCaretAtEnd(comment);
+        selectWrapper(wrapper);
     }
     function setCaretAtEnd(field) {
         var range = document.createRange();
@@ -127,6 +128,13 @@ var ShareThisViaNotes  = (function() {
     function getCommentField(wrapper) {
         return wrapper.querySelector(".note-comment");
     }
+    function selectWrapper(wrapper) {
+        toArray(document.querySelectorAll(".note-wrapper.is-selected")).forEach(function(wrp) {
+            wrp.classList.remove("is-selected");
+        });
+        if (wrapper) wrapper.classList.add("is-selected");
+    }
+
     function removeNote(wrapper) {
         var noteIdx = notes.indexOf(wrapper.note);
         if (noteIdx >= 0) {
@@ -138,6 +146,7 @@ var ShareThisViaNotes  = (function() {
     function cancelEdit(wrapper) {
         const comment = getCommentField(wrapper);
         comment.contentEditable = false;
+        wrapper.classList.remove("is-selected");
         var note = wrapper.note;
         if (notes.indexOf(note) === -1) {
             document.body.removeChild(wrapper);
@@ -151,6 +160,7 @@ var ShareThisViaNotes  = (function() {
         if (!content) return removeNote(wrapper)
 
         comment.contentEditable = false;
+        wrapper.classList.remove("is-selected");
         var note = wrapper.note;
         if (notes.indexOf(note) === -1) {
             notes.push(note);
@@ -180,10 +190,13 @@ var ShareThisViaNotes  = (function() {
         }
     });
     document.addEventListener("click", function(event) {
+        var wrapper = getNoteWrapper(event.target);
+        selectWrapper(wrapper);
+
         if (event.target.classList.contains("remove-note")) {
-            removeNote(getNoteWrapper(event.target));
+            removeNote(wrapper);
         } else if (event.target.classList.contains("edit-note")) {
-            editNote(getNoteWrapper(event.target));
+            editNote(wrapper);
         }
     })
 
