@@ -179,23 +179,17 @@
             setRandomAvatar();
 
             var boingAudio = document.createElement("audio");
-            if (boingAudio.play) {
-                // From https://freesound.org/people/InspectorJ/sounds/345689/
-                boingAudio.src = "boing.mp3";
-            }
+            // From https://freesound.org/people/InspectorJ/sounds/345689/
+            boingAudio.src = "boing.mp3";
             avatar.addEventListener("click", function() {
                 setRandomAvatar();
-                if (boingAudio.play) {
-                    if (boingAudio.paused) boingAudio.play();
-                    else boingAudio.currentTime = 0;
-                }
+                if (boingAudio.paused) boingAudio.play();
+                else boingAudio.currentTime = 0;
             });
         })(document.getElementById("randomAvatar"));
 
         (function(bell) {
             var dingAudio = document.createElement("audio");
-            if (!dingAudio.play) return;
-
             // From https://freesound.org/people/KeyKrusher/sounds/173000/
             dingAudio.src = "ding.mp3";
 
@@ -209,10 +203,23 @@
             });
         })(document.querySelector(".bell-icon"));
 
+        (function(heart) {
+            var beatAudio = document.createElement("audio");
+            // From https://freesound.org/people/morganpurkis/sounds/390429/
+            beatAudio.src = "beat.mp3";
+
+            heart.addEventListener("click", function() {
+                heart.classList.remove("beating");
+                setTimeout(function() {
+                    heart.classList.add("beating");
+                    if (beatAudio.paused) beatAudio.play();
+                    else beatAudio.currentTime = 0;
+                }, 0);
+            });
+        })(document.querySelector(".heart-icon"));
+
         (function(search) {
             var crashAudio = document.createElement("audio");
-            if (!crashAudio.play) return;
-
             // From https://freesound.org/people/natemarler/sounds/338692/
             crashAudio.src = "crash.mp3";
 

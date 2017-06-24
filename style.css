@@ -167,6 +167,14 @@ header > img {
 .search-icon.crashing path {
     animation-name: crash;
 }
+.heart-icon {
+    animation-iteration-count: 1;
+    animation-duration: .7s;
+    cursor: pointer;
+}
+.heart-icon.beating {
+    animation-name: beat;
+}
 
 .social-list, .tag-list {
     list-style: none;
@@ -278,4 +286,11 @@ footer .author-meta {
     40% { transform: translate(0, 25px); }
     80% { transform: translate(0, 50px); }
     100% { transform: translate(0, 0); }
+}
+@keyframes beat {
+    0% { transform: scale(1); }
+    15% { transform: scale(.9); }
+    40% { transform: scale(1.3); }
+    90% { transform: scale(.9); }
+    100% { transform: scale(1); }
 }
