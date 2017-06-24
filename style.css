@@ -40,8 +40,6 @@ section {
 article > header {
     max-width: 700px;
     padding: 35px 0 10px;
-    display: flex;
-    align-items: center;
 }
 article blockquote,
 article ul,
@@ -60,8 +58,24 @@ header {
     display: flex;
     align-items: center;
 }
-header svg {
+header svg, header img {
     height: 32px;
+    border-radius: 50%;
+}
+header > span {
+    flex-grow: 1;
+}
+header > svg {
+    height: 25px;
+    margin: 4px 12px 3px 11px;
+    cursor: pointer;
+}
+header > svg path {
+    fill: rgba(0, 0, 0, .44);
+}
+header > img {
+    margin-left: 8px;
+    cursor: pointer;
 }
 
 .avatar {
@@ -108,8 +122,7 @@ header svg {
     box-sizing: border-box;
 }
 .note-toolbar {
-    background: rgba(0, 0, 0, .05);
-    margin: 0em -1em -1em;
+    margin: -.5em -1em -1em;
     text-align: right;
     opacity: 0;
     line-height: 1;
@@ -119,7 +132,7 @@ header svg {
     color: gray;
     border: none;
     box-shadow: none;
-    padding: 0 .25em;
+    padding: .25em;
     line-height: 1;
     font-size: 100%;
     cursor: pointer;
@@ -134,6 +147,25 @@ header svg {
 .note-wrapper.is-selected > .note-reference,
 .note-wrapper:hover > .note-reference {
     display: block;
+}
+
+.bell-icon {
+    animation-iteration-count: 1;
+    animation-duration: 1.4s;
+    transform-origin: 50% 15%;
+}
+.bell-icon.oscillating {
+    animation-name: bell;
+}
+.search-icon path {
+    animation-iteration-count: 1;
+    animation-duration: 1.3s;
+}
+.search-icon.crashing {
+    cursor: default;
+}
+.search-icon.crashing path {
+    animation-name: crash;
 }
 
 @media (max-width: 767px) {
@@ -186,4 +218,26 @@ header svg {
     .note-wrapper.is-selected .note-toolbar > button {
         display: inline-block;
     }
+}
+
+@keyframes bell {
+    0% { transform: rotate(0deg); }
+    5% { transform: rotate(-30deg); }
+    15% { transform: rotate(30deg); }
+    25% { transform: rotate(-20deg); }
+    35% { transform: rotate(20deg); }
+    45% { transform: rotate(-12deg); }
+    55% { transform: rotate(12deg); }
+    65% { transform: rotate(-7deg); }
+    75% { transform: rotate(7deg); }
+    85% { transform: rotate(-3deg); }
+    95% { transform: rotate(3deg); }
+    100% { transform: rotate(0deg); }
+}
+@keyframes crash {
+    0% { transform: translate(0, 0); }
+    10% { transform: translate(0, -5px); }
+    40% { transform: translate(0, 25px); }
+    80% { transform: translate(0, 50px); }
+    100% { transform: translate(0, 0); }
 }
