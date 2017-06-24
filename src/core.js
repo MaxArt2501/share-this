@@ -84,7 +84,7 @@ export default (opts) => {
         if (!range) return;
 
         const constrainedRange = constrainRange(range, options.selector);
-        if (constrainedRange.collapsed) return;
+        if (constrainedRange.collapsed || !constrainedRange.getClientRects().length) return;
 
         // eslint-disable-next-line consistent-return
         return constrainedRange;
