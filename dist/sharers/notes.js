@@ -126,7 +126,7 @@ var ShareThisViaNotes  = (function() {
         }
     }
     function getCommentField(wrapper) {
-        return wrapper.querySelector(".note-comment");
+        return wrapper && wrapper.querySelector(".note-comment");
     }
     function selectWrapper(wrapper) {
         toArray(document.querySelectorAll(".note-wrapper.is-selected")).forEach(function(wrp) {
@@ -178,7 +178,7 @@ var ShareThisViaNotes  = (function() {
     notes.forEach(buildNote);
     saveNotes();
 
-    document.addEventListener("keypress", function(event) {
+    document.addEventListener("keyup", function(event) {
         var wrapper = getNoteWrapper(event.target);
         var comment = getCommentField(wrapper);
         if (comment !== event.target) return;
@@ -188,6 +188,12 @@ var ShareThisViaNotes  = (function() {
         } else if (event.keyCode === 13) {
             saveEdit(wrapper);
         }
+    });
+    document.addEventListener("keypress", function(event) {
+        if (event.keyCode !== 13) return;
+        var wrapper = getNoteWrapper(event.target);
+        var comment = getCommentField(wrapper);
+        if (comment === event.target) event.preventDefault();
     });
     document.addEventListener("click", function(event) {
         var wrapper = getNoteWrapper(event.target);
@@ -215,6 +221,7 @@ var ShareThisViaNotes  = (function() {
         },
         action: function(event) {
             event.preventDefault();
+            event.stopPropagation();
             var note = findNoteByText(this.rawText);
             var wrapper;
             if (note) {

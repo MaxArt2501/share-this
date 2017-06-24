@@ -151,15 +151,39 @@ header svg {
     article p {
         font-size: 18px;
     }
+    header {
+        height: 56px;
+    }
 
     .note-box {
-        left: calc(100% - 16px);
+        left: 16px;
         width: 10em;
         max-width: none;
         font-size: 14px;
+        transform: translate(-100%, 0);
         transition: transform .3s;
     }
+    .note-box::after {
+        content: "";
+        position: absolute;
+        right: 6px;
+        top: calc(50% - 9px);
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2 12'><path fill='gray' d='M1,5A1 1 0 0 0 1,7M1,10A1 1 0 0 0 1,12 1 1 0 0 0 1,10M1,7A1 1 0 0 0 1,5M1,2A1 1 0 0 0 1,0 1 1 0 0 0 1,2'></path></svg>");
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 3px;
+        height: 18px;
+    }
+    .note-toolbar > button {
+        display: none;
+    }
     .note-wrapper.is-selected > .note-box {
-        transform: translate(calc(16px - 100%), -100%);
+        transform: translate(-16px, -100%);
+    }
+    .note-wrapper.is-selected > .note-box::after {
+        content: none;
+    }
+    .note-wrapper.is-selected .note-toolbar > button {
+        display: inline-block;
     }
 }
