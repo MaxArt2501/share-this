@@ -1,3 +1,9 @@
+# 1.2.0
+
+* Popover repositioning on viewport resize/screen orientation change (#2)
+* Fixed popover positioning when screen is zoomed (#3)
+* Added check for collapsed ranges (#4)
+
 # 1.1.0
 
 * Added support to selection changes
