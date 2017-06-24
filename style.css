@@ -58,6 +58,12 @@ header {
     display: flex;
     align-items: center;
 }
+body > header {
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
 header svg, header img {
     height: 32px;
 }
