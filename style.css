@@ -1,4 +1,4 @@
-body {
+body, .tag-list {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     color: #333;
@@ -60,7 +60,6 @@ header {
 }
 header svg, header img {
     height: 32px;
-    border-radius: 50%;
 }
 header > span {
     flex-grow: 1;
@@ -74,6 +73,7 @@ header > svg path {
     fill: rgba(0, 0, 0, .44);
 }
 header > img {
+    border-radius: 50%;
     margin-left: 8px;
     cursor: pointer;
 }
@@ -168,7 +168,45 @@ header > img {
     animation-name: crash;
 }
 
-@media (max-width: 767px) {
+.social-list, .tag-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+.social-list li:first-child {
+    flex-grow: 1;
+}
+.social-list svg {
+    height: 29px;
+    margin: 10px 10px 0;
+}
+.tag-list > li {
+    margin: 0 8px 8px 0;
+    padding: 5px 10px;
+    font-size: 13px;
+    color: rgba(0, 0, 0, .6);
+    background: rgba(0, 0, 0, .05);
+    border-radius: 3px;
+}
+
+footer {
+    clear: both;
+    max-width: 700px;
+    padding: 20px;
+    margin: 10px auto 0;
+    border-top: 1px solid rgba(0, 0, 0, .05);
+    display: flex;
+}
+footer .author-info > a {
+    font-size: 18px;
+    font-weight: bold;
+}
+footer .author-meta {
+    font-size: 14px;
+}
+
+@media (max-width: 899px) {
     h1 {
         font-size: 32px;
         margin: 31px 0 0;
