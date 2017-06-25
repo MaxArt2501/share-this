@@ -4,11 +4,18 @@ ShareThis({
 }).init();
 
 (function() {
-    var avatar = document.getElementById("randomAvatar");
+    var avatar = document.querySelector(".random-avatar");
     function setRandomAvatar() {
         var random = (Math.random() * 1e12).toString(36);
         avatar.src = "https://api.adorable.io/avatars/32/" + random + ".png";
+        avatar.classList.add("loading");
     }
+    function endAvatarLoad() {
+        console.log("Finished!", avatar.src);
+        avatar.classList.remove("loading");
+    }
+    avatar.addEventListener("load", endAvatarLoad);
+    avatar.addEventListener("error", endAvatarLoad);
     setRandomAvatar();
 
     function resetAudio(audio) {
@@ -26,6 +33,7 @@ ShareThis({
     // From https://freesound.org/people/InspectorJ/sounds/345689/
     boingAudio.src = "boing.mp3";
     avatar.addEventListener("click", function() {
+        if (avatar.classList.contains("loading")) return;
         setRandomAvatar();
         resetAudio(boingAudio);
     });
