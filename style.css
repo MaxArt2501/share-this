@@ -84,6 +84,15 @@ header > img {
     cursor: pointer;
 }
 
+figure > img, figure > video {
+    width: 100%;
+}
+figcaption {
+    text-align: center;
+    font-style: italic;
+    margin: .25em 0 0;
+}
+
 .avatar {
     height: 60px;
     border-radius: 50%;
