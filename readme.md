@@ -7,6 +7,8 @@ Medium-like text selection sharing without dependencies
 [![Build Status](https://travis-ci.org/MaxArt2501/share-this.svg?branch=master)](https://travis-ci.org/MaxArt2501/share-this)
 [![License Type](https://img.shields.io/github/license/MaxArt2501/share-this.svg)](https://img.shields.io/github/license/MaxArt2501/share-this.svg)
 
+![share-this in action](https://maxart2501.github.io/share-this/example.gif)
+
 ## Purpose
 
 This lightweight library allows to create a simple interface to share selected text in a page, in the form of a small popover over the selected portion of text.
@@ -103,7 +105,7 @@ It must return the HTML of the button/link/element that should provide the requi
 
 ### `name` (mandatory)
 
-A unique string (among the sharers) that identify the sharer (e.g.: `"twitter"`, `"facebook"`, ...).
+A unique string (among the sharers) that identifies the sharer (e.g.: `"twitter"`, `"facebook"`, ...).
 
 ### `active(text, rawText)` (optional)
 
@@ -158,6 +160,8 @@ Facebook | `dist/sharers/facebook.js`  | `facebook`  | `ShareThisViaFacebook`
 LinkedIn | `dist/sharers/linked-in.js` | `linked-in` | `ShareThisViaLinkedIn`
 Reddit   | `dist/sharers/reddit.js`    | `reddit`    | `ShareThisViaReddit`
 Email    | `dist/sharers/email.js`     | `email`     | `ShareThisViaEmail`
+
+You can find a couple more on the [presentation page](https://maxart2501.github.io/share-this/) of the library.
 
 
 ## Developer friendly
