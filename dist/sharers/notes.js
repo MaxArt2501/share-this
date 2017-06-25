@@ -211,7 +211,7 @@ var ShareThisViaNotes  = (function() {
         render: function(text, rawText) {
             this.rawText = rawText;
             return "<a title=\"Write a note about it\" href=\"#\">"
-                + "<svg viewBox=\"-1-1 9 9\">"
+                + "<svg viewBox=\"-1 -1 9 9\">"
                     + "<path fill=\"currentColor\" d=\"M0 1A1 1 0 0 1 1 0H6A1 1 0 0 1 7 1V4A1 1 0 0 1 6.707 4.707L4.41 7V5H1A1 1 0 0 1 0 4 "
                         + "M3 2.5A.5.5 0 0 0 4 2.5M5 2.5A.5.5 0 0 0 6 2.5.5.5 0 0 0 5 2.5M4 2.5A.5.5 0 0 03 2.5M2 2.5A.5.5 0 0 0 1 2.5.5.5 0 0 0 2 2.5\"></path>"
                 + "</svg></a>";
