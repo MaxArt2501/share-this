@@ -11,7 +11,6 @@ ShareThis({
         avatar.classList.add("loading");
     }
     function endAvatarLoad() {
-        console.log("Finished!", avatar.src);
         avatar.classList.remove("loading");
     }
     avatar.addEventListener("load", endAvatarLoad);
