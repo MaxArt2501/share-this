@@ -6,7 +6,7 @@ import * as dom from "../src/dom";
 
 const fakeWindow = {
     getComputedStyle() {
-        return { position: "relative" }
+        return { position: "relative" };
     },
     document: {
         body: {
