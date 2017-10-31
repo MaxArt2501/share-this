@@ -1,3 +1,12 @@
+# 1.2.2
+
+* Removed `target="_blank"` to email sharer (issue #13)
+* Added `!default` modifier to SCSS variable definitions (issue #14)
+
+# 1.2.1
+
+* Fixed property `module` in [package.json](package.json) (PR #9)
+
 # 1.2.0
 
 * Popover repositioning on viewport resize/screen orientation change (#2)
