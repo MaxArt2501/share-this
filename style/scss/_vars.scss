@@ -1,13 +1,13 @@
-$share-this-vertical-offset: -.25em;
-$share-this-background: #333;
-$share-this-foreground: #fff;
-$share-this-highlight-link: rgba(#fff, .25);
-$share-this-border-radius: .25em;
-$share-this-arrow-size: .5em;
+$share-this-vertical-offset: -.25em !default;
+$share-this-background: #333 !default;
+$share-this-foreground: #fff !default;
+$share-this-highlight-link: rgba(#fff, .25) !default;
+$share-this-border-radius: .25em !default;
+$share-this-arrow-size: .5em !default;
 
-$share-this-sharer-width: 2em;
-$share-this-sharer-height: 2em;
-$share-this-sharer-padding: .35em;
-$share-this-border-distance: 4em;
-$share-this-animation-length: .3s;
-$share-this-small-devices-max: 575px;
+$share-this-sharer-width: 2em !default;
+$share-this-sharer-height: 2em !default;
+$share-this-sharer-padding: .35em !default;
+$share-this-border-distance: 4em !default;
+$share-this-animation-length: .3s !default;
+$share-this-small-devices-max: 575px !default;
