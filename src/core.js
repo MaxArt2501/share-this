@@ -154,9 +154,13 @@ export default (opts) => {
             return destroyed = true;
         },
         redraw: () => {
+            if (!initialized || destroyed) return false;
+
             const range = getConstrainedRange();
             if (range) drawPopover(range);
             else killPopover();
+
+            return true;
         }
     };
 };
