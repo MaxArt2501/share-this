@@ -87,6 +87,11 @@ selectionShare.destroy();
 
 A destroyed sharing object can *not* be `init`ialized again.
 
+If you need to redraw the popover for some reason, use the `redraw` method:
+```javascript
+selectionShare.redraw();
+``` 
+
 
 ## Sharers
 
