@@ -132,8 +132,8 @@ export default (opts) => {
             }
 
             eventTypes.forEach(addListener);
-            _window.addEventListener("resize", resizeHandler);
-            _window.addEventListener("scroll", scrollHandler);
+            _window.addEventListener("resize", resizeHandler, { passive: true });
+            _window.addEventListener("scroll", scrollHandler, { passive: true });
 
             lifeCycle = lifeCycleFactory(_document);
 
