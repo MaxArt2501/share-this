@@ -1,8 +1,17 @@
 export function getOffsetScroll(_window) {
     const body = _window.document.body;
-    const scrollReference = _window.getComputedStyle(body).position === "static"
-            ? body.parentNode : body;
-    return scrollReference.getBoundingClientRect();
+
+    if (_window.getComputedStyle(body).position !== "static") {
+        return body.getBoundingClientRect();
+    }
+
+    const left = window.pageXOffset || document.documentElement.scrollLeft;
+    const top = window.pageYOffset || document.documentElement.scrollTop;
+
+    return {
+        left: left * -1,
+        top: top * -1
+    };
 }
 
 let matchFunc;
