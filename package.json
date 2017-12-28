@@ -18,7 +18,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "prepublish": "npm test",
+    "build": "gulp",
+    "prepare": "npm test",
     "preversion": "npm test",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "test": "nyc --require babel-core/register mocha test/*.js test/sharers/*.js",
