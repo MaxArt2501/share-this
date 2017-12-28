@@ -54,9 +54,9 @@ gulp.task("default", [ "lint" ], () => {
 
 function buildJsEntry(file, name, standalone, output) {
     rollup({
-        entry: file,
+        input: file,
         format: "umd",
-        moduleName: standalone,
+        name: standalone,
         plugins: [ babel({
             babelrc: false,
             presets: [ [ "es2015", { modules: false }] ]
