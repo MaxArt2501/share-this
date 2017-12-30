@@ -55,6 +55,12 @@ export default (opts) => {
             _window = _undefined;
 
             return destroyed = true;
+        },
+        reposition() {
+            if (popover) {
+                stylePopover(popover, getConstrainedRange(), options);
+            }
+            return !!popover;
         }
     };
 

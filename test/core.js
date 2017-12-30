@@ -24,6 +24,12 @@ describe("Core factory", () => {
             done();
         });
     });
+    it("must create an object with a reposition method", (done) => {
+        init({}, (result) => {
+            expect(result.reposition).to.be.a("function");
+            done();
+        });
+    });
     describe("init", () => {
         it("must return false if the environment doesn't support Selection API", (done) => {
             init({}, (result) => {
@@ -65,6 +71,15 @@ describe("Core factory", () => {
                 result.init();
                 const isSuccessful = result.destroy();
                 expect(isSuccessful).to.be.true;
+                done();
+            });
+        });
+    });
+    describe("reposition", () => {
+        it("must return false if there's no popover in the page", (done) => {
+            init({}, (result) => {
+                const isSuccessful = result.reposition();
+                expect(isSuccessful).to.be.false;
                 done();
             });
         });
