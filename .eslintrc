@@ -24,6 +24,7 @@
             "optionalDependencies": false,
             "peerDependencies": false
         }],
+        "import/extensions": "off",
         "indent": [ "error", 4 ],
         "max-len": "off",
         "new-cap": "error",
