@@ -221,4 +221,4 @@ voice synthesis"), so you might want to show *both* native and custom sharing in
 
 ## License
 
-MIT @ Massimo Artizzu 2016-2017. See [LICENSE](LICENSE).
+MIT @ Massimo Artizzu 2016-2018. See [LICENSE](LICENSE).
