@@ -2,7 +2,7 @@
 import { expect } from "chai";
 import { env } from "jsdom";
 
-import * as dom from "../src/dom";
+import * as dom from "../src/dom.js";
 
 const fakeWindow = {
     getComputedStyle() {

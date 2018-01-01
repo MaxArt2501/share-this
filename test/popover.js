@@ -4,7 +4,7 @@ import { spy } from "sinon";
 import sinonChai from "sinon-chai";
 import { env } from "jsdom";
 
-import * as popover from "../src/popover";
+import * as popover from "../src/popover.js";
 
 chai.use(sinonChai);
 

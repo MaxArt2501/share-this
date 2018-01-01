@@ -4,7 +4,7 @@ import { parse } from "url";
 import { expect } from "chai";
 import { env } from "jsdom";
 
-import * as emailSharer from "../../src/sharers/email";
+import * as emailSharer from "../../src/sharers/email.js";
 
 describe("Email sharer", () => {
     it("must have name 'email'", () => {

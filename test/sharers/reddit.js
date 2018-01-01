@@ -4,7 +4,7 @@ import { parse } from "url";
 import { expect } from "chai";
 import { env } from "jsdom";
 
-import * as redditSharer from "../../src/sharers/reddit";
+import * as redditSharer from "../../src/sharers/reddit.js";
 
 const longText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magnat aliqua.";
 

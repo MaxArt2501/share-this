@@ -2,7 +2,7 @@
 import { expect } from "chai";
 import { env } from "jsdom";
 
-import * as selection from "../src/selection";
+import * as selection from "../src/selection.js";
 
 describe("Selection methods", () => {
     describe("isSelectionForward", () => {

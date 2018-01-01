@@ -2,7 +2,7 @@
 import { expect } from "chai";
 import { env } from "jsdom";
 
-import factory from "../src/core";
+import factory from "../src/core.js";
 
 describe("Core factory", () => {
     it("must be a factory function", (done) => {

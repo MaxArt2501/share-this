@@ -6,7 +6,7 @@ import { stub, match } from "sinon";
 import sinonChai from "sinon-chai";
 import { env } from "jsdom";
 
-import * as twitterSharer from "../../src/sharers/twitter";
+import * as twitterSharer from "../../src/sharers/twitter.js";
 
 chai.use(sinonChai);
 

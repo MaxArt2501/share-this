@@ -6,7 +6,7 @@ import { stub, match } from "sinon";
 import sinonChai from "sinon-chai";
 import { env } from "jsdom";
 
-import * as linkedInSharer from "../../src/sharers/linked-in";
+import * as linkedInSharer from "../../src/sharers/linked-in.js";
 
 chai.use(sinonChai);
 

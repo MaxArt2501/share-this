@@ -2,7 +2,7 @@
 import { expect } from "chai";
 import { env } from "jsdom";
 
-import render from "../src/render";
+import render from "../src/render.js";
 
 const fakeWindow = {
     location: "http://foo/"

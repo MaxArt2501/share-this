@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return, no-undef, no-unused-expressions */
 import { expect } from "chai";
 
-import * as utils from "../src/utils";
+import * as utils from "../src/utils.js";
 
 describe("Package utilities", () => {
     describe("camelize", () => {
