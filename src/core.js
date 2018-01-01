@@ -1,7 +1,7 @@
-import { stylePopover, lifeCycleFactory } from "./popover";
-import { constrainRange } from "./selection";
-import { extend, isCallable } from "./utils";
-import render from "./render";
+import { stylePopover, lifeCycleFactory } from "./popover.js";
+import { constrainRange } from "./selection.js";
+import { extend, isCallable } from "./utils.js";
+import render from "./render.js";
 
 let _undefined;
 const eventTypes = [ "selectionchange", "mouseup", "touchend", "touchcancel" ];

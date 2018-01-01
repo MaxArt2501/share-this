@@ -1,4 +1,4 @@
-import { closest, contains } from "./dom";
+import { closest, contains } from "./dom.js";
 
 export function isSelectionForward(selection) {
     if (selection.isCollapsed) return true;

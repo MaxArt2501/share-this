@@ -1,6 +1,6 @@
-import { getOffsetScroll, closest } from "./dom";
-import { findByName, isCallable } from "./utils";
-import { isSelectionForward, getEndLineRect } from "./selection";
+import { getOffsetScroll, closest } from "./dom.js";
+import { findByName, isCallable } from "./utils.js";
+import { isSelectionForward, getEndLineRect } from "./selection.js";
 
 export function stylePopover(popover, range, options) {
     const _document = options.document;
