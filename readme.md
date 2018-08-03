@@ -36,6 +36,12 @@ Via bower:
 $ bower install share-this
 ```
 
+Via CDN:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/share-this/dist/share-this.js"></script>
+```
+
 
 ## Usage
 
