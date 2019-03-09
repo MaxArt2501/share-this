@@ -166,6 +166,7 @@ Facebook | `dist/sharers/facebook.js`  | `facebook`  | `ShareThisViaFacebook`
 LinkedIn | `dist/sharers/linked-in.js` | `linked-in` | `ShareThisViaLinkedIn`
 Reddit   | `dist/sharers/reddit.js`    | `reddit`    | `ShareThisViaReddit`
 Email    | `dist/sharers/email.js`     | `email`     | `ShareThisViaEmail`
+WhatsApp | `dist/sharers/whatsapp.js`  | `whatsapp`  | `ShareThisViaWhatsApp`
 
 You can find a couple more on the [presentation page](https://maxart2501.github.io/share-this/) of the library.
 
