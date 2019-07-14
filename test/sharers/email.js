@@ -2,7 +2,7 @@
 import { parse } from "url";
 
 import { expect } from "chai";
-import { env } from "jsdom";
+import { JSDOM } from "jsdom";
 
 import * as emailSharer from "../../src/sharers/email.js";
 
@@ -13,13 +13,11 @@ describe("Email sharer", () => {
 
     it("must render a link with protocol mailto: and no recipient", (done) => {
         const html = emailSharer.render("foo", "foo", "path/to/whatever");
-        env(html, (err, _window) => {
-            if (err) return done(err);
+        const { window } = new JSDOM(html);
 
-            const anchor = _window.document.querySelector("a[href^='mailto:?']");
-            expect(anchor).to.not.be.null;
-            done();
-        });
+        const anchor = window.document.querySelector("a[href^='mailto:?']");
+        expect(anchor).to.not.be.null;
+        done();
     });
 
     it("must have a `getShareUrl` helper method", () => {

@@ -2,7 +2,7 @@
 import chai, { expect } from "chai";
 import { spy } from "sinon";
 import sinonChai from "sinon-chai";
-import { env } from "jsdom";
+import { JSDOM } from "jsdom";
 
 import * as popover from "../src/popover.js";
 
@@ -38,9 +38,9 @@ describe("Popover methods", () => {
 
         describe("createPopover", () => {
             it("must create a DOM element", (done) => {
-                initLifeCycle((result, _window) => {
+                initLifeCycle((result, window) => {
                     const element = result.createPopover();
-                    expect(element instanceof _window.HTMLElement).to.be.true;
+                    expect(element instanceof window.HTMLElement).to.be.true;
                     done();
                 });
             });
@@ -68,18 +68,18 @@ describe("Popover methods", () => {
         });
         describe("attachPopover", () => {
             it("must append the given element to document.body", (done) => {
-                initLifeCycle((result, _window) => {
-                    const fakePopover = _window.document.createElement("foo");
+                initLifeCycle((result, window) => {
+                    const fakePopover = window.document.createElement("foo");
                     result.attachPopover(fakePopover);
-                    expect(fakePopover.parentNode).to.equal(_window.document.body);
+                    expect(fakePopover.parentNode).to.equal(window.document.body);
                     done();
                 });
             });
         });
         describe("removePopover", () => {
             it("must detach the given element from document.body", (done) => {
-                initLifeCycle((result, _window) => {
-                    const body = _window.document.body;
+                initLifeCycle((result, window) => {
+                    const body = window.document.body;
                     const fakePopover = body.firstChild;
                     result.removePopover(fakePopover);
                     expect(body.childNodes.length).to.equal(0);
@@ -92,59 +92,53 @@ describe("Popover methods", () => {
 
     describe("popoverClick", () => {
         it("must call the sharer's `action` method", (done) => {
-            env(fakeHTML, (err, _window) => {
-                const sharer = {
-                    name: "foo",
-                    action: spy()
-                };
-                const target = _window.document.body.firstChild.firstChild;
-                const event = new _window.Event("click");
-                target.dispatchEvent(event);
+            const { window } = new JSDOM(fakeHTML);
+            const sharer = {
+                name: "foo",
+                action: spy()
+            };
+            const target = window.document.body.firstChild.firstChild;
+            const event = new window.Event("click");
+            target.dispatchEvent(event);
 
-                popover.popoverClick([ sharer ], event);
-                expect(sharer.action).to.be.calledOnce;
-                done();
-            });
+            popover.popoverClick([ sharer ], event);
+            expect(sharer.action).to.be.calledOnce;
+            done();
         });
         it("must get out soon if the sharer isn't found", (done) => {
-            env(fakeHTML, (err, _window) => {
-                const sharer = {
-                    name: "bar",
-                    action: spy()
-                };
-                const target = _window.document.body.firstChild.firstChild;
-                const event = new _window.Event("click");
-                target.dispatchEvent(event);
+            const { window } = new JSDOM(fakeHTML);
+            const sharer = {
+                name: "bar",
+                action: spy()
+            };
+            const target = window.document.body.firstChild.firstChild;
+            const event = new window.Event("click");
+            target.dispatchEvent(event);
 
-                popover.popoverClick([ sharer ], event);
-                expect(sharer.action).to.not.be.called;
-                done();
-            });
+            popover.popoverClick([ sharer ], event);
+            expect(sharer.action).to.not.be.called;
+            done();
         });
         it("must get out soon if the element isn't found", (done) => {
-            env(fakeHTML, (err, _window) => {
-                const sharer = {
-                    name: "foo",
-                    action: spy()
-                };
-                const target = _window.document.body.firstChild.firstChild;
-                target.removeAttribute("data-share-via");
-                const event = new _window.Event("click");
-                target.dispatchEvent(event);
+            const { window } = new JSDOM(fakeHTML);
+            const sharer = {
+                name: "foo",
+                action: spy()
+            };
+            const target = window.document.body.firstChild.firstChild;
+            target.removeAttribute("data-share-via");
+            const event = new window.Event("click");
+            target.dispatchEvent(event);
 
-                popover.popoverClick([ sharer ], event);
-                expect(sharer.action).to.not.be.called;
-                done();
-            });
+            popover.popoverClick([ sharer ], event);
+            expect(sharer.action).to.not.be.called;
+            done();
         });
     });
 });
 
 function initLifeCycle(callback) {
-    env(fakeHTML, (err, _window) => {
-        expect(err).to.be.null;
-
-        const result = popover.lifeCycleFactory(_window.document);
-        callback(result, _window);
-    });
+    const { window } = new JSDOM(fakeHTML);
+    const result = popover.lifeCycleFactory(window.document);
+    callback(result, window);
 }

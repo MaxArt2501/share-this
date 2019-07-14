@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return, no-undef, no-unused-expressions */
 import { expect } from "chai";
-import { env } from "jsdom";
+import { JSDOM } from "jsdom";
 
 import render from "../src/render.js";
 
@@ -25,21 +25,17 @@ describe("Rendering engine", () => {
     });
     it("must build a list with an item for every sharer", (done) => {
         const result = render({ document: fakeDocument }, fakeSharers, "example", "example");
-        env(result, (err, _window) => {
-            if (err) {
-                return done(err);
-            }
+        const { window } = new JSDOM(result);
 
-            const document = _window.document;
-            expect(document.querySelectorAll("ul > li").length).to.equal(2);
+        const document = window.document;
+        expect(document.querySelectorAll("ul > li").length).to.equal(2);
 
-            for (const sharer of fakeSharers) {
-                const { name } = sharer;
-                const item = document.querySelector("li[data-share-via=" + name + "]");
-                expect(item).to.not.be.null;
-            }
+        for (const sharer of fakeSharers) {
+            const { name } = sharer;
+            const item = document.querySelector("li[data-share-via=" + name + "]");
+            expect(item).to.not.be.null;
+        }
 
-            done();
-        });
+        done();
     });
 });

@@ -2,7 +2,7 @@
 import { parse } from "url";
 
 import { expect } from "chai";
-import { env } from "jsdom";
+import { JSDOM } from "jsdom";
 
 import * as redditSharer from "../../src/sharers/reddit.js";
 
@@ -15,13 +15,11 @@ describe("Reddit sharer", () => {
 
     it("must render a link to Reddit", (done) => {
         const html = redditSharer.render("foo", "foo", "path/to/whatever");
-        env(html, (err, _window) => {
-            if (err) return done(err);
+        const { window } = new JSDOM(html);
 
-            const anchor = _window.document.querySelector("a[href^='https://reddit.com/']");
-            expect(anchor).to.not.be.null;
-            done();
-        });
+        const anchor = window.document.querySelector("a[href^='https://reddit.com/']");
+        expect(anchor).to.not.be.null;
+        done();
     });
 
     it("must have a `getText` helper method", () => {

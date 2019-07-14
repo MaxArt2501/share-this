@@ -4,7 +4,7 @@ import { parse } from "url";
 import chai, { expect } from "chai";
 import { stub, match } from "sinon";
 import sinonChai from "sinon-chai";
-import { env } from "jsdom";
+import { JSDOM } from "jsdom";
 
 import * as twitterSharer from "../../src/sharers/twitter.js";
 
@@ -19,13 +19,11 @@ describe("Twitter sharer", () => {
 
     it("must render a link to Twitter", (done) => {
         const html = twitterSharer.render("foo", "foo", "path/to/whatever");
-        env(html, (err, _window) => {
-            if (err) return done(err);
+        const { window } = new JSDOM(html);
 
-            const anchor = _window.document.querySelector("a[href^='https://twitter.com/']");
-            expect(anchor).to.not.be.null;
-            done();
-        });
+        const anchor = window.document.querySelector("a[href^='https://twitter.com/']");
+        expect(anchor).to.not.be.null;
+        done();
     });
 
     it("must have a `getText` helper method", () => {
@@ -56,81 +54,71 @@ describe("Twitter sharer", () => {
 
         it("must prevent the event's default", (done) => {
             const html = twitterSharer.render("foo", "foo", "path/to/whatever");
-            env(html, (err, _window) => {
-                if (err) return done(err);
+            const { window } = new JSDOM(html);
 
-                const event = new _window.Event("click");
-                const preventStub = stub(event, "preventDefault");
-                stub(_window, "open").returns({});
+            const event = new window.Event("click");
+            const preventStub = stub(event, "preventDefault");
+            stub(window, "open").returns({});
 
-                twitterSharer.action(event, _window.document.body);
-                expect(preventStub.called).to.be.true;
-                done();
-            });
+            twitterSharer.action(event, window.document.body);
+            expect(preventStub.called).to.be.true;
+            done();
         });
 
         it("must open a new window", (done) => {
             const html = twitterSharer.render("foo", "foo", "path/to/whatever");
-            env(html, (err, _window) => {
-                if (err) return done(err);
+            const { window } = new JSDOM(html);
 
-                const event = new _window.Event("click");
-                const openStub = stub(_window, "open");
-                openStub.returns({});
+            const event = new window.Event("click");
+            const openStub = stub(window, "open");
+            openStub.returns({});
 
-                twitterSharer.action(event, _window.document.body);
-                expect(openStub.calledOnce).to.be.true;
-                done();
-            });
+            twitterSharer.action(event, window.document.body);
+            expect(openStub.calledOnce).to.be.true;
+            done();
         });
 
         it("must open a new window named \"share_via_twitter\"", (done) => {
             const html = twitterSharer.render("foo", "foo", "path/to/whatever");
-            env(html, (err, _window) => {
-                if (err) return done(err);
+            const { window } = new JSDOM(html);
 
-                const event = new _window.Event("click");
-                const openStub = stub(_window, "open");
-                openStub.returns({});
+            const event = new window.Event("click");
+            const openStub = stub(window, "open");
+            openStub.returns({});
 
-                twitterSharer.action(event, _window.document.body);
-                expect(openStub).to.have.been.calledWith(match.any, "share_via_twitter", match.any);
-                done();
-            });
+            twitterSharer.action(event, window.document.body);
+            expect(openStub).to.have.been.calledWith(match.any, "share_via_twitter", match.any);
+            done();
         });
 
         it("must open a new window with the link provided by `getShareUrl`", (done) => {
             const html = twitterSharer.render("foo", "foo", "path/to/whatever");
-            env(html, (err, _window) => {
-                if (err) return done(err);
+            const { window } = new JSDOM(html);
 
-                const event = new _window.Event("click");
-                const openStub = stub(_window, "open");
-                openStub.returns({});
+            const event = new window.Event("click");
+            const openStub = stub(window, "open");
+            openStub.returns({});
 
-                const text = twitterSharer.getText("foo");
-                const url = twitterSharer.getShareUrl(text, "path/to/whatever");
+            const text = twitterSharer.getText("foo");
+            const url = twitterSharer.getShareUrl(text, "path/to/whatever");
 
-                twitterSharer.action(event, _window.document.body);
-                expect(openStub).to.have.been.calledWith(url, match.any, match.any);
-                done();
-            });
+            twitterSharer.action(event, window.document.body);
+            expect(openStub).to.have.been.calledWith(url, match.any, match.any);
+            done();
         });
 
         it("must nullify the popup's `opener` property", (done) => {
             const html = twitterSharer.render("foo", "foo", "path/to/whatever");
-            env(html, (err, _window) => {
-                if (err) return done(err);
+            const { window } = new JSDOM(html);
 
-                const event = new _window.Event("click");
-                const openStub = stub(_window, "open");
-                const popup = {};
-                openStub.returns(popup);
+            const event = new window.Event("click");
+            const openStub = stub(window, "open");
+            const popup = {};
+            openStub.returns(popup);
 
-                twitterSharer.action(event, _window.document.body);
-                expect(popup.opener).to.be.null;
-                done();
-            });
+            twitterSharer.action(event, window.document.body);
+            expect(popup.opener).to.be.null;
+            done();
         });
     });
 });

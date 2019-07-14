@@ -4,7 +4,7 @@ import { parse } from "url";
 import chai, { expect } from "chai";
 import { stub, match } from "sinon";
 import sinonChai from "sinon-chai";
-import { env } from "jsdom";
+import { JSDOM } from "jsdom";
 
 import * as facebookSharer from "../../src/sharers/facebook.js";
 
@@ -17,13 +17,11 @@ describe("Facebook sharer", () => {
 
     it("must render a link to Facebook", (done) => {
         const html = facebookSharer.render("foo", "foo", "path/to/whatever");
-        env(html, (err, _window) => {
-            if (err) return done(err);
+        const { window } = new JSDOM(html);
 
-            const anchor = _window.document.querySelector("a[href^='https://www.facebook.com/']");
-            expect(anchor).to.not.be.null;
-            done();
-        });
+        const anchor = window.document.querySelector("a[href^='https://www.facebook.com/']");
+        expect(anchor).to.not.be.null;
+        done();
     });
 
     describe("`getShareUrl` method", () => {
@@ -45,79 +43,69 @@ describe("Facebook sharer", () => {
 
         it("must prevent the event's default", (done) => {
             const html = facebookSharer.render("foo", "foo", "path/to/whatever");
-            env(html, (err, _window) => {
-                if (err) return done(err);
+            const { window } = new JSDOM(html);
 
-                const event = new _window.Event("click");
-                const preventStub = stub(event, "preventDefault");
-                stub(_window, "open").returns({});
+            const event = new window.Event("click");
+            const preventStub = stub(event, "preventDefault");
+            stub(window, "open").returns({});
 
-                facebookSharer.action(event, _window.document.body);
-                expect(preventStub.called).to.be.true;
-                done();
-            });
+            facebookSharer.action(event, window.document.body);
+            expect(preventStub.called).to.be.true;
+            done();
         });
 
         it("must open a new window", (done) => {
             const html = facebookSharer.render("foo", "foo", "path/to/whatever");
-            env(html, (err, _window) => {
-                if (err) return done(err);
+            const { window } = new JSDOM(html);
 
-                const event = new _window.Event("click");
-                const openStub = stub(_window, "open");
-                openStub.returns({});
+            const event = new window.Event("click");
+            const openStub = stub(window, "open");
+            openStub.returns({});
 
-                facebookSharer.action(event, _window.document.body);
-                expect(openStub.calledOnce).to.be.true;
-                done();
-            });
+            facebookSharer.action(event, window.document.body);
+            expect(openStub.calledOnce).to.be.true;
+            done();
         });
 
         it("must open a new window named \"share_via_facebook\"", (done) => {
             const html = facebookSharer.render("foo", "foo", "path/to/whatever");
-            env(html, (err, _window) => {
-                if (err) return done(err);
+            const { window } = new JSDOM(html);
+    
+            const event = new window.Event("click");
+            const openStub = stub(window, "open");
+            openStub.returns({});
 
-                const event = new _window.Event("click");
-                const openStub = stub(_window, "open");
-                openStub.returns({});
-
-                facebookSharer.action(event, _window.document.body);
-                expect(openStub).to.have.been.calledWith(match.any, "share_via_facebook", match.any);
-                done();
-            });
+            facebookSharer.action(event, window.document.body);
+            expect(openStub).to.have.been.calledWith(match.any, "share_via_facebook", match.any);
+            done();
         });
 
         it("must open a new window with the link provided by `getShareUrl`", (done) => {
             const html = facebookSharer.render("foo", "foo", "path/to/whatever");
-            env(html, (err, _window) => {
-                if (err) return done(err);
+            const { window } = new JSDOM(html);
+    
+            const event = new window.Event("click");
+            const openStub = stub(window, "open");
+            openStub.returns({});
+            const url = facebookSharer.getShareUrl("foo", "path/to/whatever");
 
-                const event = new _window.Event("click");
-                const openStub = stub(_window, "open");
-                openStub.returns({});
-                const url = facebookSharer.getShareUrl("foo", "path/to/whatever");
-
-                facebookSharer.action(event, _window.document.body);
-                expect(openStub).to.have.been.calledWith(url, match.any, match.any);
-                done();
-            });
+            facebookSharer.action(event, window.document.body);
+            expect(openStub).to.have.been.calledWith(url, match.any, match.any);
+            done();
         });
 
         it("must nullify the popup's `opener` property", (done) => {
             const html = facebookSharer.render("foo", "foo", "path/to/whatever");
-            env(html, (err, _window) => {
-                if (err) return done(err);
+            const { window } = new JSDOM(html);
+    
+            const event = new window.Event("click");
+            const openStub = stub(window, "open");
+            const popup = {};
+            openStub.returns(popup);
 
-                const event = new _window.Event("click");
-                const openStub = stub(_window, "open");
-                const popup = {};
-                openStub.returns(popup);
-
-                facebookSharer.action(event, _window.document.body);
-                expect(popup.opener).to.be.null;
-                done();
-            });
+            facebookSharer.action(event, window.document.body);
+            expect(popup.opener).to.be.null;
+            done();
         });
     });
 });

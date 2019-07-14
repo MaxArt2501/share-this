@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return, no-undef, no-unused-expressions */
 import { expect } from "chai";
-import { env } from "jsdom";
+import { JSDOM } from "jsdom";
 
 import factory from "../src/core.js";
 
@@ -89,11 +89,8 @@ describe("Core factory", () => {
 const fakeHTML = "<div>Hello, world!</div>";
 
 function init(opts, callback) {
-    env(fakeHTML, (err, _window) => {
-        expect(err).to.be.null;
-
-        global.document = _window.document;
-        const result = factory(opts);
-        callback(result);
-    });
+    const dom = new JSDOM(fakeHTML);
+    global.document = dom.window.document;
+    const result = factory(opts);
+    callback(result);
 }
