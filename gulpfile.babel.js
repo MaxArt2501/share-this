@@ -1,6 +1,6 @@
 import { readdirSync } from "fs";
 
-import gulp from "gulp";
+import { dest, parallel, series, src } from "gulp";
 
 import uglify from "gulp-uglify";
 import rollup from "rollup-stream";
@@ -9,48 +9,43 @@ import babel from "rollup-plugin-babel";
 import source from "vinyl-source-stream";
 import buffer from "vinyl-buffer";
 
-import less from "gulp-less";
-import cssnano from "gulp-cssnano";
+import lessFn from "gulp-less";
+import csso from "gulp-csso";
 
 import eslint from "gulp-eslint";
 
 import { camelize } from "./src/utils";
 
-gulp.task("js", () => {
+export function js() {
     buildJsEntry("./src/core.js", "share-this", "ShareThis", "dist/");
-});
+}
 
-gulp.task("sharers", () => {
+export function sharers() {
     readdirSync("./src/sharers").forEach((file) => {
         const name = file.replace(/\.js$/i, "");
         if (name === file) return;
         buildJsEntry(`./src/sharers/${file}`, name, `ShareThisVia${camelize(name)}`, "dist/sharers/");
     });
-});
+}
 
-gulp.task("less", () => {
-    gulp.src("./style/less/share-this.less")
-        .pipe(less())
-        .pipe(cssnano({ autoprefixer: false }))
-        .pipe(gulp.dest("dist/"))
+export function less() {
+    return src("./style/less/share-this.less")
+        .pipe(lessFn())
+        .pipe(csso())
+        .pipe(dest("dist/"))
     ;
-});
+}
 
-gulp.task("lint", () => {
-    const result = gulp
-        .src([ "./src/**/*.js", "./test/**/**.js", "./gulpfile.babel.js" ])
+export function lint() {
+    const result = src([ "./src/**/*.js", "./test/**/**.js", "./gulpfile.babel.js" ])
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());
 
     return result;
-});
+}
 
-gulp.task("default", [ "lint" ], () => {
-    gulp.start("js");
-    gulp.start("sharers");
-    gulp.start("less");
-});
+export default series(lint, parallel(js, sharers, less));
 
 function buildJsEntry(file, name, standalone, output) {
     rollup({
@@ -65,6 +60,6 @@ function buildJsEntry(file, name, standalone, output) {
         .pipe(source(`${name}.js`))
         .pipe(buffer())
         .pipe(uglify())
-        .pipe(gulp.dest(output))
+        .pipe(dest(output))
     ;
 }
