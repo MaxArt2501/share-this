@@ -19,13 +19,12 @@ describe("LinkedIn sharer", () => {
         expect(linkedInSharer.name).to.equal("linked-in");
     });
 
-    it("must render a link to LinkedIn", (done) => {
+    it("must render a link to LinkedIn", () => {
         const html = linkedInSharer.render("foo", "foo", "path/to/whatever");
         const { window } = new JSDOM(html);
 
         const anchor = window.document.querySelector("a[href^='https://www.linkedin.com/']");
         expect(anchor).to.not.be.null;
-        done();
     });
 
     it("must have a `getText` helper method", () => {
@@ -54,7 +53,7 @@ describe("LinkedIn sharer", () => {
             expect(typeof linkedInSharer.action).to.equal("function");
         });
 
-        it("must prevent the event's default", (done) => {
+        it("must prevent the event's default", () => {
             const html = linkedInSharer.render("foo", "foo", "path/to/whatever");
             const { window } = new JSDOM(html);
 
@@ -64,10 +63,9 @@ describe("LinkedIn sharer", () => {
 
             linkedInSharer.action(event, window.document.body);
             expect(preventStub.called).to.be.true;
-            done();
         });
 
-        it("must open a new window", (done) => {
+        it("must open a new window", () => {
             const html = linkedInSharer.render("foo", "foo", "path/to/whatever");
             const { window } = new JSDOM(html);
 
@@ -77,10 +75,9 @@ describe("LinkedIn sharer", () => {
 
             linkedInSharer.action(event, window.document.body);
             expect(openStub.calledOnce).to.be.true;
-            done();
         });
 
-        it("must open a new window named \"share_via_linked_in\"", (done) => {
+        it("must open a new window named \"share_via_linked_in\"", () => {
             const html = linkedInSharer.render("foo", "foo", "path/to/whatever");
             const { window } = new JSDOM(html);
 
@@ -90,10 +87,9 @@ describe("LinkedIn sharer", () => {
 
             linkedInSharer.action(event, window.document.body);
             expect(openStub).to.have.been.calledWith(match.any, "share_via_linked_in", match.any);
-            done();
         });
 
-        it("must open a new window with the link provided by `getShareUrl`", (done) => {
+        it("must open a new window with the link provided by `getShareUrl`", () => {
             const html = linkedInSharer.render("foo", "foo", "path/to/whatever");
             const { window } = new JSDOM(html);
 
@@ -106,10 +102,9 @@ describe("LinkedIn sharer", () => {
 
             linkedInSharer.action(event, window.document.body);
             expect(openStub).to.have.been.calledWith(url, match.any, match.any);
-            done();
         });
 
-        it("must nullify the popup's `opener` property", (done) => {
+        it("must nullify the popup's `opener` property", () => {
             const html = linkedInSharer.render("foo", "foo", "path/to/whatever");
             const { window } = new JSDOM(html);
 
@@ -120,7 +115,6 @@ describe("LinkedIn sharer", () => {
 
             linkedInSharer.action(event, window.document.body);
             expect(popup.opener).to.be.null;
-            done();
         });
     });
 });

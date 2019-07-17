@@ -13,13 +13,12 @@ describe("Reddit sharer", () => {
         expect(redditSharer.name).to.equal("reddit");
     });
 
-    it("must render a link to Reddit", (done) => {
+    it("must render a link to Reddit", () => {
         const html = redditSharer.render("foo", "foo", "path/to/whatever");
         const { window } = new JSDOM(html);
 
         const anchor = window.document.querySelector("a[href^='https://reddit.com/']");
         expect(anchor).to.not.be.null;
-        done();
     });
 
     it("must have a `getText` helper method", () => {

@@ -17,34 +17,26 @@ describe("Popover methods", () => {
             const result = popover.lifeCycleFactory(null);
             expect(result).to.be.an("object");
         });
-        it("must create an object with a createPopover method", (done) => {
-            initLifeCycle((result) => {
-                expect(result.createPopover).to.be.a("function");
-                done();
-            });
+        it("must create an object with a createPopover method", () => {
+            const { result } = initLifeCycle();
+            expect(result.createPopover).to.be.a("function");
         });
-        it("must create an object with an attachPopover method", (done) => {
-            initLifeCycle((result) => {
-                expect(result.attachPopover).to.be.a("function");
-                done();
-            });
+        it("must create an object with an attachPopover method", () => {
+            const { result } = initLifeCycle();
+            expect(result.attachPopover).to.be.a("function");
         });
-        it("must create an object with a removePopover method", (done) => {
-            initLifeCycle((result) => {
-                expect(result.removePopover).to.be.a("function");
-                done();
-            });
+        it("must create an object with a removePopover method", () => {
+            const { result } = initLifeCycle();
+            expect(result.removePopover).to.be.a("function");
         });
 
         describe("createPopover", () => {
-            it("must create a DOM element", (done) => {
-                initLifeCycle((result, window) => {
-                    const element = result.createPopover();
-                    expect(element instanceof window.HTMLElement).to.be.true;
-                    done();
-                });
+            it("must create a DOM element", () => {
+                const { result, window } = initLifeCycle();
+                const element = result.createPopover();
+                expect(element instanceof window.HTMLElement).to.be.true;
             });
-            it("must attach an onclick event listener to the created element", (done) => {
+            it("must attach an onclick event listener to the created element", () => {
                 let attached = false;
                 const fakeElement = {
                     addEventListener(type, fn) {
@@ -63,35 +55,29 @@ describe("Popover methods", () => {
                 const { createPopover } = popover.lifeCycleFactory(fakeDocument);
                 const fakePopover = createPopover();
                 expect(fakePopover).to.equal(fakeElement);
-                done();
             });
         });
         describe("attachPopover", () => {
-            it("must append the given element to document.body", (done) => {
-                initLifeCycle((result, window) => {
-                    const fakePopover = window.document.createElement("foo");
-                    result.attachPopover(fakePopover);
-                    expect(fakePopover.parentNode).to.equal(window.document.body);
-                    done();
-                });
+            it("must append the given element to document.body", () => {
+                const { result, window } = initLifeCycle();
+                const fakePopover = window.document.createElement("foo");
+                result.attachPopover(fakePopover);
+                expect(fakePopover.parentNode).to.equal(window.document.body);
             });
         });
         describe("removePopover", () => {
-            it("must detach the given element from document.body", (done) => {
-                initLifeCycle((result, window) => {
-                    const body = window.document.body;
-                    const fakePopover = body.firstChild;
-                    result.removePopover(fakePopover);
-                    expect(body.childNodes.length).to.equal(0);
-                    expect(fakePopover.parentNode).to.be.null;
-                    done();
-                });
+            it("must detach the given element from document.body", () => {
+                const { result, window: { document: body } } = initLifeCycle();
+                const fakePopover = body.firstChild;
+                result.removePopover(fakePopover);
+                expect(body.childNodes.length).to.equal(0);
+                expect(fakePopover.parentNode).to.be.null;
             });
         });
     });
 
     describe("popoverClick", () => {
-        it("must call the sharer's `action` method", (done) => {
+        it("must call the sharer's `action` method", () => {
             const { window } = new JSDOM(fakeHTML);
             const sharer = {
                 name: "foo",
@@ -103,9 +89,8 @@ describe("Popover methods", () => {
 
             popover.popoverClick([ sharer ], event);
             expect(sharer.action).to.be.calledOnce;
-            done();
         });
-        it("must get out soon if the sharer isn't found", (done) => {
+        it("must get out soon if the sharer isn't found", () => {
             const { window } = new JSDOM(fakeHTML);
             const sharer = {
                 name: "bar",
@@ -117,9 +102,8 @@ describe("Popover methods", () => {
 
             popover.popoverClick([ sharer ], event);
             expect(sharer.action).to.not.be.called;
-            done();
         });
-        it("must get out soon if the element isn't found", (done) => {
+        it("must get out soon if the element isn't found", () => {
             const { window } = new JSDOM(fakeHTML);
             const sharer = {
                 name: "foo",
@@ -132,13 +116,11 @@ describe("Popover methods", () => {
 
             popover.popoverClick([ sharer ], event);
             expect(sharer.action).to.not.be.called;
-            done();
         });
     });
 });
 
-function initLifeCycle(callback) {
+function initLifeCycle() {
     const { window } = new JSDOM(fakeHTML);
-    const result = popover.lifeCycleFactory(window.document);
-    callback(result, window);
+    return { result: popover.lifeCycleFactory(window.document), window };
 }

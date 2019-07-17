@@ -36,7 +36,7 @@ describe("DOM utilities", () => {
 
     describe("matches", () => {
         it("must work like `Element.prototype.matches`", (done) => {
-            const { window } = new JSDOM("<div class='wrapper' id='main'><span class='foo'>Bar</span></div>");
+            const { window: { document } } = new JSDOM("<div class='wrapper' id='main'><span class='foo'>Bar</span></div>");
             const selectorMatches = {
                 ".foo": ".wrapper > span",
                 span: "#main > span",
@@ -45,7 +45,7 @@ describe("DOM utilities", () => {
 
             for (const selector of Object.keys(selectorMatches)) {
                 const match = selectorMatches[selector];
-                const element = window.document.querySelector(selector);
+                const element = document.querySelector(selector);
                 if (!element) {
                     return done(Error(`Can't find element ${selector}`));
                 }
@@ -61,50 +61,42 @@ describe("DOM utilities", () => {
     });
 
     describe("closest", () => {
-        it("must return the closest matching ancestor", (done) => {
-            const { window } = new JSDOM("<div class='wrapper' id='main'><span class='foo'>Bar</span></div>");
-            const foo = window.document.querySelector(".foo");
-            const wrapper = window.document.querySelector(".wrapper");
+        it("must return the closest matching ancestor", () => {
+            const { window: { document } } = new JSDOM("<div class='wrapper' id='main'><span class='foo'>Bar</span></div>");
+            const foo = document.querySelector(".foo");
+            const wrapper = document.querySelector(".wrapper");
             const ancestor = dom.closest(foo, ".wrapper");
 
             expect(ancestor).to.equal(wrapper);
-
-            done();
         });
-        it("must return null if no ancestor matches the selector", (done) => {
-            const { window } = new JSDOM("<div class='wrapper' id='main'><span class='foo'>Bar</span></div>");
-            const foo = window.document.querySelector(".foo");
+        it("must return null if no ancestor matches the selector", () => {
+            const { window: { document } } = new JSDOM("<div class='wrapper' id='main'><span class='foo'>Bar</span></div>");
+            const foo = document.querySelector(".foo");
             const ancestor = dom.closest(foo, ".bar");
 
             expect(ancestor).to.be.null;
-
-            done();
         });
     });
 
     describe("contains", () => {
-        it("must return true if and only if the ancestor contains the target or it's the same node", (done) => {
-            const { window } = new JSDOM("<div class='wrapper' id='main'><span class='foo'>Bar</span></div>");
-            const target = window.document.querySelector(".foo");
-            const ancestor = window.document.querySelector(".wrapper");
+        it("must return true if and only if the ancestor contains the target or it's the same node", () => {
+            const { window: { document } } = new JSDOM("<div class='wrapper' id='main'><span class='foo'>Bar</span></div>");
+            const target = document.querySelector(".foo");
+            const ancestor = document.querySelector(".wrapper");
 
             expect(dom.contains(ancestor, target)).to.be.true;
             expect(dom.contains(ancestor, ancestor)).to.be.true;
-            expect(dom.contains(ancestor, window.document.body)).to.be.false;
-
-            done();
+            expect(dom.contains(ancestor, document.body)).to.be.false;
         });
-        it("must work with any kind of node", (done) => {
-            const { window } = new JSDOM("<div class='wrapper' id='main'><span class='foo'>Bar</span><!-- A comment --></div>");
-            const target = window.document.querySelector(".foo");
+        it("must work with any kind of node", () => {
+            const { window: { document } } = new JSDOM("<div class='wrapper' id='main'><span class='foo'>Bar</span><!-- A comment --></div>");
+            const target = document.querySelector(".foo");
             const text = target.firstChild;
-            const ancestor = window.document.querySelector(".wrapper");
+            const ancestor = document.querySelector(".wrapper");
             const comment = ancestor.lastChild;
 
             expect(dom.contains(ancestor, text)).to.be.true;
             expect(dom.contains(ancestor, comment)).to.be.true;
-
-            done();
         });
     });
 });

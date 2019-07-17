@@ -15,13 +15,12 @@ describe("Facebook sharer", () => {
         expect(facebookSharer.name).to.equal("facebook");
     });
 
-    it("must render a link to Facebook", (done) => {
+    it("must render a link to Facebook", () => {
         const html = facebookSharer.render("foo", "foo", "path/to/whatever");
         const { window } = new JSDOM(html);
 
         const anchor = window.document.querySelector("a[href^='https://www.facebook.com/']");
         expect(anchor).to.not.be.null;
-        done();
     });
 
     describe("`getShareUrl` method", () => {
@@ -41,7 +40,7 @@ describe("Facebook sharer", () => {
             expect(typeof facebookSharer.action).to.equal("function");
         });
 
-        it("must prevent the event's default", (done) => {
+        it("must prevent the event's default", () => {
             const html = facebookSharer.render("foo", "foo", "path/to/whatever");
             const { window } = new JSDOM(html);
 
@@ -51,10 +50,9 @@ describe("Facebook sharer", () => {
 
             facebookSharer.action(event, window.document.body);
             expect(preventStub.called).to.be.true;
-            done();
         });
 
-        it("must open a new window", (done) => {
+        it("must open a new window", () => {
             const html = facebookSharer.render("foo", "foo", "path/to/whatever");
             const { window } = new JSDOM(html);
 
@@ -64,10 +62,9 @@ describe("Facebook sharer", () => {
 
             facebookSharer.action(event, window.document.body);
             expect(openStub.calledOnce).to.be.true;
-            done();
         });
 
-        it("must open a new window named \"share_via_facebook\"", (done) => {
+        it("must open a new window named \"share_via_facebook\"", () => {
             const html = facebookSharer.render("foo", "foo", "path/to/whatever");
             const { window } = new JSDOM(html);
     
@@ -77,10 +74,9 @@ describe("Facebook sharer", () => {
 
             facebookSharer.action(event, window.document.body);
             expect(openStub).to.have.been.calledWith(match.any, "share_via_facebook", match.any);
-            done();
         });
 
-        it("must open a new window with the link provided by `getShareUrl`", (done) => {
+        it("must open a new window with the link provided by `getShareUrl`", () => {
             const html = facebookSharer.render("foo", "foo", "path/to/whatever");
             const { window } = new JSDOM(html);
     
@@ -91,10 +87,9 @@ describe("Facebook sharer", () => {
 
             facebookSharer.action(event, window.document.body);
             expect(openStub).to.have.been.calledWith(url, match.any, match.any);
-            done();
         });
 
-        it("must nullify the popup's `opener` property", (done) => {
+        it("must nullify the popup's `opener` property", () => {
             const html = facebookSharer.render("foo", "foo", "path/to/whatever");
             const { window } = new JSDOM(html);
     
@@ -105,7 +100,6 @@ describe("Facebook sharer", () => {
 
             facebookSharer.action(event, window.document.body);
             expect(popup.opener).to.be.null;
-            done();
         });
     });
 });

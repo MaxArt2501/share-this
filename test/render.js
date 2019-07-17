@@ -23,11 +23,10 @@ describe("Rendering engine", () => {
         const result = render({ document: fakeDocument }, [], "foo", "foo");
         expect(result).to.be.a("string");
     });
-    it("must build a list with an item for every sharer", (done) => {
+    it("must build a list with an item for every sharer", () => {
         const result = render({ document: fakeDocument }, fakeSharers, "example", "example");
-        const { window } = new JSDOM(result);
+        const { window: { document } } = new JSDOM(result);
 
-        const document = window.document;
         expect(document.querySelectorAll("ul > li").length).to.equal(2);
 
         for (const sharer of fakeSharers) {
@@ -35,7 +34,5 @@ describe("Rendering engine", () => {
             const item = document.querySelector("li[data-share-via=" + name + "]");
             expect(item).to.not.be.null;
         }
-
-        done();
     });
 });

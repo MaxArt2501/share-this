@@ -11,13 +11,12 @@ describe("Email sharer", () => {
         expect(emailSharer.name).to.equal("email");
     });
 
-    it("must render a link with protocol mailto: and no recipient", (done) => {
+    it("must render a link with protocol mailto: and no recipient", () => {
         const html = emailSharer.render("foo", "foo", "path/to/whatever");
         const { window } = new JSDOM(html);
 
         const anchor = window.document.querySelector("a[href^='mailto:?']");
         expect(anchor).to.not.be.null;
-        done();
     });
 
     it("must have a `getShareUrl` helper method", () => {
