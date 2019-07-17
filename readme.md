@@ -163,7 +163,6 @@ Site     | File location               | Name        | Global variable
 ---------|-----------------------------|-------------|-----------------------
 Twitter  | `dist/sharers/twitter.js`   | `twitter`   | `ShareThisViaTwitter`
 Facebook | `dist/sharers/facebook.js`  | `facebook`  | `ShareThisViaFacebook`
-LinkedIn | `dist/sharers/linked-in.js` | `linked-in` | `ShareThisViaLinkedIn`
 Reddit   | `dist/sharers/reddit.js`    | `reddit`    | `ShareThisViaReddit`
 Email    | `dist/sharers/email.js`     | `email`     | `ShareThisViaEmail`
 
