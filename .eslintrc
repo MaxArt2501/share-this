@@ -1,8 +1,5 @@
 {
     "extends": "airbnb-base",
-    "ecmaFeatures": {
-        "modules": true
-    },
     "env": {
         "browser": true,
         "node": true,
@@ -43,6 +40,7 @@
         "no-unused-vars": "error",
         "no-use-before-define": [ "error", { "functions": false } ],
         "prefer-template": "off",
+        "prefer-destructuring": "off",
         "quotes": [ 2, "double" ],
         "semi": [ "error", "always" ],
         "space-before-function-paren": [ "error", "never" ]
