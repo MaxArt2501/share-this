@@ -1,7 +1,6 @@
 export function getOffsetScroll(_window) {
     const body = _window.document.body;
-    const scrollReference = _window.getComputedStyle(body).position === "static"
-            ? body.parentNode : body;
+    const scrollReference = _window.getComputedStyle(body).position === "static" ? body.parentNode : body;
     return scrollReference.getBoundingClientRect();
 }
 

@@ -67,7 +67,7 @@ describe("Facebook sharer", () => {
         it("must open a new window named \"share_via_facebook\"", () => {
             const html = facebookSharer.render("foo", "foo", "path/to/whatever");
             const { window } = new JSDOM(html);
-    
+
             const event = new window.Event("click");
             const openStub = stub(window, "open");
             openStub.returns({});
@@ -79,7 +79,7 @@ describe("Facebook sharer", () => {
         it("must open a new window with the link provided by `getShareUrl`", () => {
             const html = facebookSharer.render("foo", "foo", "path/to/whatever");
             const { window } = new JSDOM(html);
-    
+
             const event = new window.Event("click");
             const openStub = stub(window, "open");
             openStub.returns({});
@@ -92,7 +92,7 @@ describe("Facebook sharer", () => {
         it("must nullify the popup's `opener` property", () => {
             const html = facebookSharer.render("foo", "foo", "path/to/whatever");
             const { window } = new JSDOM(html);
-    
+
             const event = new window.Event("click");
             const openStub = stub(window, "open");
             const popup = {};
