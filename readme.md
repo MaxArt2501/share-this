@@ -93,6 +93,16 @@ selectionShare.destroy();
 
 A destroyed sharing object can *not* be `init`ialized again.
 
+If a layout change in the page moves the selected text from its original position, it might happen that the relative popover is
+not aligned to it anymore. If that happens, call the instance's `reposition` method:
+
+```javascript
+if (selectionShare.reposition()) {
+    console.log('Popover correctly realigned');
+}
+```
+
+
 
 ## Sharers
 
@@ -172,8 +182,8 @@ You can find a couple more on the [presentation page](https://maxart2501.github.
 ## Developer friendly
 
 This library's source code (that can be found in the [src](src/) folder) uses ES2015 profusely, including ES2015 module definition and loading.
-This means that, at the moment, its modules can't be `require`d without prior transpilation, but this also mean that this library is ready for
-when environments will finally support ES2015 modules.
+This means that, at the moment, its modules can't be `require`d without prior transpilation, but this also mean that this library is directly
+usable in environments that support ES2015 modules.
 
 The `"module"` property is defined in [package.json](package.json) for those module loaders that support it
 ([Rollup](https://github.com/rollup/rollup), for example, which is also used to bundle the library).
@@ -218,12 +228,10 @@ voice synthesis"), so you might want to show *both* native and custom sharing in
 
 ## To do
 
-* More tests (with headless browsers)
 * More test coverage
-* Fine-tune Babel
 * Support for JSX in sharers' `render` method
 
 
 ## License
 
-MIT @ Massimo Artizzu 2016-2018. See [LICENSE](LICENSE).
+MIT @ Massimo Artizzu 2016-2019. See [LICENSE](LICENSE).
