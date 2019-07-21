@@ -1,3 +1,10 @@
+# 1.3.0
+
+* Refactored build process, added sourcemaps (issue #32)
+* Added types
+* Fixed bug that caused throwing after destroying on mouseup (issue #35)
+* Tuned Babel, eslint options
+
 # 1.2.2
 
 * Removed `target="_blank"` to email sharer (issue #13)
