@@ -99,7 +99,7 @@ A destroyed sharing object can *not* be `init`ialized again.
 A "sharer" is simply an object with just one mandatory method: `render`, that must return the HTML string of the sharing button;
 and a `name` property.
 
-### `render(text, rawText, shareUrl)` (mandatory)
+### `render(text: string, rawText: string, shareUrl: string) => string` (mandatory)
 
 This function receives these arguments:
 
@@ -109,16 +109,16 @@ This function receives these arguments:
 
 It must return the HTML of the button/link/element that should provide the required sharing functionality.
 
-### `name` (mandatory)
+### `name: string` (mandatory)
 
 A unique string (among the sharers) that identifies the sharer (e.g.: `"twitter"`, `"facebook"`, ...).
 
-### `active(text, rawText)` (optional)
+### `active(text: string, rawText: string): any | boolean` (optional)
 
 This property could actually be a function (with the above signature) or a boolean, stating if the sharer is enabled (`true`) or not.
 If it's a function, it should return a truthy or falsy value, with the same meaning.
 
-### `action(event, item)` (optional)
+### `action(event: MouseEvent, item: HTMLLIElement): void` (optional)
 
 A function to be called when the user clicks/taps on the sharing button. The `event`'s default is *not* prevented. `item` is the
 `<li>` element that wraps the sharer's button.
