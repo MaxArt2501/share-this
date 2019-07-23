@@ -25,6 +25,7 @@
         "indent": [ "error", 4 ],
         "max-len": "off",
         "new-cap": "error",
+        "no-console": [ "error", { "allow": [ "warn", "error" ] } ],
         "no-debugger": "error",
         "no-extra-boolean-cast": "error",
         "no-extra-semi": "error",
