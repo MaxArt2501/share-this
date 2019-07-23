@@ -1,3 +1,7 @@
+# 1.3.1
+
+* Restored LinkedIn sharer with limited functionality (issue #37)
+
 # 1.3.0
 
 * Refactored build process, added sourcemaps (issue #32)
@@ -7,8 +11,8 @@
 
 # 1.2.2
 
-* Removed `target="_blank"` to email sharer (issue #13)
-* Added `!default` modifier to SCSS variable definitions (issue #14)
+* Removed `target="_blank"` to email sharer (issue #12)
+* Added `!default` modifier to SCSS variable definitions (issue #13)
 
 # 1.2.1
 

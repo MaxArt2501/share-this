@@ -175,8 +175,18 @@ Twitter  | `dist/sharers/twitter.js`   | `twitter`   | `ShareThisViaTwitter`
 Facebook | `dist/sharers/facebook.js`  | `facebook`  | `ShareThisViaFacebook`
 Reddit   | `dist/sharers/reddit.js`    | `reddit`    | `ShareThisViaReddit`
 Email    | `dist/sharers/email.js`     | `email`     | `ShareThisViaEmail`
+LinkedIn (*see note below!) | `dist/sharers/linked-in.js`     | `linked-in`     | `ShareThisViaLinkedIn`
 
 You can find a couple more on the [presentation page](https://maxart2501.github.io/share-this/) of the library.
+
+**Note about the LinkedIn sharer**: LinkedIn doesn't allow sharing a site with a custom title/snippet of text. Therefore ShareThis would fail
+to bring any value relatively to other sharing methods. The sharer is kept for backwards compatibility only. The following warning will appear
+in the console the first time the sharer is rendered:
+
+> LinkedIn doesn't allow sharing links with custom titles anymore, so the main point of ShareThis
+> (sharing a portion of text) couldn't be accomplished. You're encouraged to share your URLs with other,
+> more conventional means, like the official LinkedIn share plugin. See
+> https://docs.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/plugins/share-plugin
 
 
 ## Developer friendly
@@ -228,8 +238,10 @@ voice synthesis"), so you might want to show *both* native and custom sharing in
 
 ## To do
 
+* Name change ([issue](https://github.com/MaxArt2501/share-this/issues/38))
 * More test coverage
 * Support for JSX in sharers' `render` method
+* Move the sharers from the library to separate packages ([issue](https://github.com/MaxArt2501/share-this/issues/39))
 
 
 ## License
