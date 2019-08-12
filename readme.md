@@ -66,7 +66,7 @@ var shareThis = window.ShareThis;
 `shareThis` is a factory for text selection sharing functionality:
 
 ```javascript
-const selectionShare = shareThis({
+const selectionShare = ShareThis({
     selector: "#shareable",
     sharers: mySharerList
 });
@@ -158,7 +158,7 @@ Then you can use the sharers of your choice:
 
 ```javascript
 const selectionShare = shareThis({
-    sharers: [ twitterSharer ]
+    sharers: [ ShareThisViaTwitter ]
 });
 ```
 
