@@ -105,7 +105,11 @@ export default (opts) => {
         const sharers = options.sharers.filter(sharerCheck.bind(null, text, rawText));
 
         if (!sharers.length) {
-            if (popover) killPopover();
+            if (popover) {
+                // eslint-disable-next-line no-console
+                console.warn("share-this: You have not set the sharers here. So we kill the popover.");
+                killPopover();
+            }
             return;
         }
         if (toBeOpened) popover = lifeCycle.createPopover();
